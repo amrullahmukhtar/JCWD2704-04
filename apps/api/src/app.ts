@@ -28,7 +28,7 @@ export default class App {
   }
 
   private handleError(): void {
-    // not found
+    // not found //a
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       if (req.path.includes('/api/')) {
         res.status(404).send('Not found !');
