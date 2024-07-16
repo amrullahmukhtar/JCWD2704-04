@@ -8,14 +8,249 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model Sample {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Users {
+  id       String  @id @default(cuid())
+  email    String  @unique @db.VarChar(85)
+  password String?
+  avatar   String?
+  fullname String?  @db.VarChar(85)
+  gender   Gender?
+  googleId String?
 
-  @@map("samples") // if you want to use snake_case format
+  personal_summary String? @db.Text
+  // languages        String    @db.VarChar(85)
+  // resume           String    @db.Text
+
+  role                Role      @default(user)
+  // USER
+  phone_no            String?   @db.VarChar(25)
+  id_card             String?   @unique @db.VarChar(16)
+  address             String?   @db.VarChar(255)
+  kota_kabupaten      String?
+  provinsi            String?
+  date_of_birth       DateTime?
+  salary_expectations Int?
+  subs_mode           Subs_mode @default(none)
+  subs_start_date     DateTime?
+  subs_end_date       DateTime?
+
+  // ADMIN
+  company_name     String? @db.VarChar(100)
+  company_logo     String?
+  company_summary  String? @db.Text
+  company_location String? @db.VarChar(255)
+  contact_email    String? @db.VarChar(50)
+  contact_phone    String? @db.VarChar(25)
+
+  // DEVELOPER
+  bank_acc_no String? @db.VarChar(75)
+
+  is_verified Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  Career_history   Career_history[]
+  Certification    Certification[]
+  Education        Education[]
+  Skill            Skill[]
+  Assessment       Assessment[]
+  Skill_assessment Skill_assessment[]
+  User_answer      User_answer[]
+  Transaction      Transaction[]
+
+  @@index([fullname, email, role])
+  @@map("users")
+}
+
+enum Role {
+  user
+  admin
+  developer
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum Subs_mode {
+  none
+  standard
+  premium
+}
+
+model Career_history {
+  id           Int      @id @default(autoincrement())
+  user_id      String
+  title        String   @db.VarChar(100)
+  company_name String   @db.VarChar(100)
+  start_date   DateTime
+  end_date     DateTime
+  details      String   @db.Text
+
+  user Users @relation(fields: [user_id], references: [id])
+
+  @@map("career_histories")
+}
+
+model Certification {
+  id          Int      @id @default(autoincrement())
+  user_id     String
+  title       String   @db.VarChar(100)
+  earned_date DateTime
+  user        Users    @relation(fields: [user_id], references: [id])
+
+  @@map("certifications")
+}
+
+model Education {
+  id               Int      @id @default(autoincrement())
+  user_id          String
+  institution_name String   @db.VarChar(100)
+  details          String   @db.Text
+  start_date       DateTime
+  end_date         DateTime
+
+  user Users @relation(fields: [user_id], references: [id])
+
+  @@map("educations")
+}
+
+model Skill {
+  id      Int    @id @default(autoincrement())
+  user_id String
+  title   String @db.VarChar(85)
+  details String @db.Text
+
+  user Users @relation(fields: [user_id], references: [id])
+
+  @@map("skills")
+}
+
+enum Post_status {
+  published
+  finished
+}
+
+model Job {
+  id            Int      @id @default(autoincrement())
+  admin_id      String
+  title         String      @db.VarChar(100)
+  hire_position String
+  description   String      @db.Text
+  status        Post_status @default(published)
+  location      String
+  posted_date   DateTime
+  closing_date  DateTime
+  longitude     Float
+  latitude      Float
+
+  @@map("jobs")
+}
+
+enum Regis_status {
+  pending
+  accepted
+  rejected
+}
+
+model Job_regis {
+  job_id           String
+  admin_id         String
+  application_date DateTime
+  status           Regis_status @default(pending)
+  interview_date   DateTime
+  review           String       @db.Text
+
+  @@id([job_id, admin_id])
+  @@map("job_registrations")
+}
+
+model Assessment {
+  id           String   @id @default(cuid())
+  developer_id String
+  title        String   @db.Text
+  created_at   DateTime
+
+  user             Users              @relation(fields: [developer_id], references: [id])
+  Skill_assessment Skill_assessment[]
+  Question         Question[]
+
+  @@map("assessments")
+}
+
+model Skill_assessment {
+  user_id       String?
+  assessment_id String
+  score         Int
+  completed_at  DateTime
+
+  user       Users?     @relation(fields: [user_id], references: [id])
+  assessment Assessment @relation(fields: [assessment_id], references: [id])
+
+  @@id([assessment_id])
+  @@map("skill_assessments")
+}
+
+model Question {
+  id            Int    @id
+  assessment_id String
+  question      String @db.Text
+
+  assessment  Assessment    @relation(fields: [assessment_id], references: [id])
+  Answer      Answer[]
+  User_answer User_answer[]
+
+  @@map("questions")
+}
+
+enum Answer_status {
+  correct
+  wrong
+}
+
+model Answer {
+  id          Int           @id
+  question_id Int
+  answer      String        @db.Text
+  status      Answer_status @default(wrong)
+
+  question Question @relation(fields: [question_id], references: [id])
+
+  @@map("answers")
+}
+
+model User_answer {
+  user_id     String
+  question_id Int
+  answer      String @db.Text
+
+  user     Users    @relation(fields: [user_id], references: [id])
+  question Question @relation(fields: [question_id], references: [id])
+
+  @@id([user_id, question_id])
+  @@map("user_answers")
+}
+
+enum Transaction_status {
+  unpaid
+  pending
+  success
+  cancelled
+}
+
+model Transaction {
+  id             String             @id @default(cuid())
+  user_id        String
+  invoice_code   String
+  transfer_proof String?
+  status         Transaction_status @default(unpaid)
+  paid_at        DateTime?
+
+  user Users @relation(fields: [user_id], references: [id])
+
+  @@map("transactions")
 }

@@ -1,0 +1,30 @@
+import { Gender, Role, Subs_mode } from '@prisma/client';
+
+export type TUser = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  fullname: string;
+  gender?: Gender | null;
+  personal_summary?: string;
+  role: Role;
+  phone_no?: string | null;
+  id_card?: string | null;
+  address?: string | null;
+  date_of_birth?: Date | null;
+  salary_expectations?: number | null;
+  subs_mode?: Subs_mode | null;
+  subs_start_date?: Date | null;
+  subs_end_date?: Date | null;
+  company_name?: string | null;
+  current_position?: string | null;
+  company_summary?: string | null;
+  company_location?: string | null;
+  contact_email?: string | null;
+  contact_phone?: string | null;
+  bank_acc_no?: string | null;
+  is_verified: boolean;
+  created_at: Date;
+  updated_at?: Date | null;
+};
