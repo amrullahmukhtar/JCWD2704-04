@@ -8,6 +8,7 @@ const LandingPage: React.FC = () => {
       <FilterSection />
       <HeroSection />
       <DiscoverySection />
+      {/* a */}
     </>
   );
 };
