@@ -29,7 +29,7 @@ export default function Hamburger() {
     navbarLink('Assessment', '/skillAssessment'),
   ];
 
-  const optionalHref = (!userData?.id || !adminData?.id || !devData?.id)
+  const optionalHref = (!userData?.id && !adminData?.id && !devData?.id)
     ? [navbarLink('Login', '/login')]
     : [];
 
@@ -99,7 +99,7 @@ export default function Hamburger() {
             </Link>
           </li>
         ))}
-        {userData?.id && adminData?.id && devData?.id && (
+        {(userData?.id || adminData?.id || devData?.id) && (
           <li className="h-full w-full text-black font-semibold py-2">
             <button
               onClick={handleLogout}

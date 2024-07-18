@@ -31,5 +31,11 @@
     "hooks": {
       "pre-commit": "npx lint-staged"
     }
+  },
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "firebase": "^10.12.3",
+    "sweetalert2": "^11.12.2"
   }
 }

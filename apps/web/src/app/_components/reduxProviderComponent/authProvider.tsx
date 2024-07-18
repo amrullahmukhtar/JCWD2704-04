@@ -17,6 +17,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error verifying login:", error);
     }
   };
+
   
 
   const userData = useAppSelector((state) => state.userData);
@@ -28,7 +29,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    console.log(userData);
+
   }, [userData, adminData, devData]);
 
   return <>{children}</>;
