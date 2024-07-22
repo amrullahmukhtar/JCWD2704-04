@@ -4,18 +4,18 @@ import BackEndForm from './backEndForm';
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/app/_lib/redux/hooks';
-import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/app/_lib/firebase/firebase';
 import Swal from 'sweetalert2';
 import csrMainApi from '@/app/_lib/axios/csrMainApi';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 import { devDataAction } from '@/app/_lib/redux/slices/devData.slice';
+import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
   const [input, setInput] = useState({});
-  
+
   function inputHandler(e: ChangeEvent<HTMLInputElement>) {
     setInput({ ...input, [e.target.id]: e.target.value });
   }
@@ -35,8 +35,9 @@ const LoginForm: React.FC = () => {
         text: 'Welcome back!',
         icon: 'success',
       });
-      
+
       dispatch(userDataAction.loginUser(response.data.data));
+      console.log(response.data.data);
       router.push('/');
     } catch (error) {
       console.error('Error signing in with Google: ', error);
@@ -59,12 +60,13 @@ const LoginForm: React.FC = () => {
           onSuccess={(response) => {
             if (response.data.data.role === 'user') {
               dispatch(userDataAction.loginUser(response.data.data));
+              console.log(response.data.data);
             } else if (response.data.data.role === 'admin') {
               dispatch(adminDataAction.loginAdmin(response.data.data));
             } else if (response.data.data.role === 'developer') {
               dispatch(devDataAction.loginDeveloper(response.data.data));
             }
-          
+
             Swal.fire({
               title: 'Success',
               text: 'Welcome back!',
@@ -72,7 +74,6 @@ const LoginForm: React.FC = () => {
             });
             router.push('/');
           }}
-          
           onFail={(err) => {
             Swal.fire({
               title: 'Error',
@@ -128,8 +129,8 @@ const LoginForm: React.FC = () => {
             </Link>
           </p>
         </div>
-        <button 
-          onClick={signInWithGoogle} 
+        <button
+          onClick={signInWithGoogle}
           className="w-full bg-white text-gray-700 py-2 rounded mt-4 border border-gray-300 hover:bg-gray-100 transition duration-200 flex items-center justify-center"
         >
           <img src="/google.svg" alt="Google Icon" className="w-6 h-6 mr-2" />

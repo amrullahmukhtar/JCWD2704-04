@@ -3,12 +3,12 @@ CREATE TABLE `users` (
     `id` VARCHAR(191) NOT NULL,
     `email` VARCHAR(85) NOT NULL,
     `password` VARCHAR(191) NULL,
-    `avatar` VARCHAR(191) NULL,
-    `fullname` VARCHAR(85) NOT NULL,
+    `fullname` VARCHAR(85) NULL,
     `gender` ENUM('male', 'female') NULL,
     `googleId` VARCHAR(191) NULL,
-    `personal_summary` TEXT NULL,
     `role` ENUM('user', 'admin', 'developer') NOT NULL DEFAULT 'user',
+    `curriculum_vitae` LONGBLOB NULL,
+    `avatar` LONGBLOB NULL,
     `phone_no` VARCHAR(25) NULL,
     `id_card` VARCHAR(16) NULL,
     `address` VARCHAR(255) NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `skills` (
 -- CreateTable
 CREATE TABLE `jobs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `admin_id` VARCHAR(191) NOT NULL,
+    `admin_id` VARCHAR(191) NULL,
     `title` VARCHAR(100) NOT NULL,
     `hire_position` VARCHAR(191) NOT NULL,
     `description` TEXT NOT NULL,
@@ -94,6 +94,7 @@ CREATE TABLE `jobs` (
     `closing_date` DATETIME(3) NOT NULL,
     `longitude` DOUBLE NOT NULL,
     `latitude` DOUBLE NOT NULL,
+    `company_name` VARCHAR(100) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

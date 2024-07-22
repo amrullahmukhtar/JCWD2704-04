@@ -7,12 +7,13 @@ import express, {
   NextFunction,
   Router,
 } from 'express';
-import cors from "cors";
+import cors from 'cors';
 import userRouter from './routers/user.router';
 import adminRouter from './routers/admin.router';
 import developerRouter from './routers/developer.router';
 import { corsOption, PORT } from './config';
 import jobRouter from './routers/job.router';
+import userDataRouter from './routers/userData.router';
 
 export default class App {
   private app: Express;
@@ -32,6 +33,7 @@ export default class App {
     this.app.use('/admin', adminRouter.getRouter());
     this.app.use('/dev', developerRouter.getRouter());
     this.app.use('/job', jobRouter.getRouter());
+    this.app.use('/userdata', userDataRouter.getRouter());
   }
 
   private configure(): void {
@@ -54,8 +56,8 @@ export default class App {
     this.app.use(
       (err: Error, req: Request, res: Response, next: NextFunction) => {
         if (req.path.includes('/')) {
-          console.error('Error : ', err.stack);
-          res.status(500).send('Error !');
+          console.error('Error : ', err.stack, err.message);
+          res.status(500).send(err.message);
         } else {
           next();
         }

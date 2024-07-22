@@ -15,20 +15,26 @@ model Users {
   id       String  @id @default(cuid())
   email    String  @unique @db.VarChar(85)
   password String?
-  avatar   String?
-  fullname String?  @db.VarChar(85)
+
+  fullname String? @db.VarChar(85)
   gender   Gender?
   googleId String?
 
-  personal_summary String? @db.Text
   // languages        String    @db.VarChar(85)
   // resume           String    @db.Text
 
-  role                Role      @default(user)
+  role             Role    @default(user)
   // USER
-  phone_no            String?   @db.VarChar(25)
-  id_card             String?   @unique @db.VarChar(16)
-  address             String?   @db.VarChar(255)
+  curriculum_vitae Bytes?
+  avatar           Bytes?
+  phone_no         String? @db.VarChar(25)
+
+  address    String? @db.VarChar(255)
+  age        Int?
+  education  String?
+  position   String?
+  experience String?
+
   kota_kabupaten      String?
   provinsi            String?
   date_of_birth       DateTime?
@@ -47,6 +53,7 @@ model Users {
 
   // DEVELOPER
   bank_acc_no String? @db.VarChar(75)
+  id_card     String? @unique @db.VarChar(16)
 
   is_verified Boolean  @default(false)
   created_at  DateTime @default(now())
@@ -136,8 +143,8 @@ enum Post_status {
 }
 
 model Job {
-  id            Int      @id @default(autoincrement())
-  admin_id      String
+  id            Int         @id @default(autoincrement())
+  admin_id      String?
   title         String      @db.VarChar(100)
   hire_position String
   description   String      @db.Text
@@ -147,6 +154,8 @@ model Job {
   closing_date  DateTime
   longitude     Float
   latitude      Float
+
+  company_name String? @db.VarChar(100)
 
   @@map("jobs")
 }

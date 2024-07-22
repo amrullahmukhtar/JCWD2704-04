@@ -13,7 +13,8 @@ const devDataSlice = createSlice({
   initialState,
   reducers: {
     loginDeveloper: (state, action: { payload: IDeveloper }) => {
-      return action.payload;
+      state = action.payload;
+      return state
     },
     logout: (state, action: { payload: any; type: string }) => {
       state = initialState;

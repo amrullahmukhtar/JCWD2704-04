@@ -52,9 +52,7 @@ export class UserService {
       });
 
       return userData;
-    }
-
-    return userExists;
+    } else throw new Error('email google sudah terdaftar');
   }
 
   async register(req: Request) {
@@ -120,6 +118,7 @@ export class UserService {
         id: req.user?.id as string,
       },
     });
+    console.log(tokenData);
 
     return tokenData == null
       ? null
@@ -163,33 +162,31 @@ export class UserService {
   }
 
   async loginWithGoogle(req: Request) {
-    const { email } = req.body;
-    const user = await prisma.users.findFirst({
+    const { email, googleId } = req.body;
+    console.log(req.body);
+
+    const data = await prisma.users.findFirst({
       where: {
         email: email,
+        is_verified: true,
+        googleId: googleId,
       },
     });
 
-    if (!user) {
+    if (!data) {
       throw new Error('User not found');
     }
 
-    const accessToken = generateToken(
-      { id: user.id },
-      { expiresIn: TOKEN_EXPIRY },
-    );
-    const refreshToken = generateToken({ id: user.id }, { expiresIn: '20h' });
+    const result = { id: data.id };
+    const userData = { ...data, password: undefined };
+    const aauthToken = generateToken(userData, { expiresIn: TOKEN_EXPIRY });
+    console.log(aauthToken);
 
-    const userData = {
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        email: user.email,
-      },
+    return {
+      rauth: generateToken(result, { expiresIn: TOKEN_EXPIRY }),
+      aauthToken,
+      userData,
     };
-
-    return userData;
   }
 
   async forgotPassword(req: Request) {
@@ -253,6 +250,28 @@ export class UserService {
       userId: updatedUser.id,
       message: 'Password reset successful',
     };
+  }
+  async getUserProfile(userId: string) {
+    const userProfile = await prisma.users.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        fullname: true,
+        gender: true,
+        is_verified: true,
+        role: true,
+        // Tambahan field yang lain yang ingin diambil dari profil pengguna
+      },
+    });
+
+    if (!userProfile) {
+      throw new Error('User not found');
+    }
+
+    const token = generateToken({ id: userProfile.id }, { expiresIn: '1h' });
+
+    return { userProfile, token };
   }
 }
 

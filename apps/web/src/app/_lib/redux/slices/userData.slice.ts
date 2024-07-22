@@ -13,7 +13,10 @@ const userDataSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action: { payload: IUser }) => {
-      return action.payload;
+      state = action.payload;
+      console.log(state);
+      
+      return state;
     },
 
     logout: (state, action: { payload: any; type: string }) => {

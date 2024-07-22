@@ -1,15 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image'; // Pastikan import Image sesuai dengan framework yang digunakan, misalnya Next.js
+import Image from 'next/image';
 import Link from 'next/link';
+import { useAppSelector, useAppDispatch } from '@/app/_lib/redux/hooks';
+import { IUser } from '@/app/_model/user.model'; // Pastikan import IUser
 
 const ProfileDropdown = () => {
   const [profileDropdown, setProfileDropdown] = useState(false);
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.userData) as IUser | null;
 
   const toggleProfileDropdown = () => {
-    setProfileDropdown(!profileDropdown); // Mengubah nilai dropdown menjadi kebalikannya
+    setProfileDropdown(!profileDropdown);
   };
+
+    if (userData) {
+    }
+
+  const fullname = userData ? userData.fullname : '';
+  const email = userData ? userData.email : '';
 
   return (
     <>
@@ -38,23 +48,24 @@ const ProfileDropdown = () => {
                   className="rounded-full"
                 />
                 <div>
-                  <div className="font-bold">Amrullah Mukhtar</div>
-                  <div className="text-sm text-gray-600">
-                    amrullahmukhtar@gmail.com
-                  </div>
+                  <div className="font-bold">{fullname}</div>
+                  <div className="text-sm text-gray-600">{email}</div>
                 </div>
               </div>
+              {/* Pastikan userData tidak null dan memiliki properti id sebelum membuat Link */}
+              {userData && userData.id && (
+                <Link
+                  href="/profile"
+                  className="block p-2 hover:bg-gray-100 rounded-md"
+                >
+                  Profile
+                </Link>
+              )}
               <Link
                 href="/manage-account"
                 className="block p-2 hover:bg-gray-100 rounded-md"
               >
                 Manage account
-              </Link>
-              <Link
-                href="/profile"
-                className="block p-2 hover:bg-gray-100 rounded-md"
-              >
-                Profile
               </Link>
               <Link
                 href="/settings"

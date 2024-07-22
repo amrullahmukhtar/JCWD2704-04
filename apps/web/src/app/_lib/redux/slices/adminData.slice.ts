@@ -13,7 +13,8 @@ const adminDataSlice = createSlice({
   initialState,
   reducers: {
     loginAdmin: (state, action: { payload: IAdmin }) => {
-      return action.payload;
+      state = action.payload;
+      return state
     },
 
     logout: (state, action: { payload: any; type: string }) => {

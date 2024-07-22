@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProfileDropdown from './profile';
 
-
 //nabar admin
 export default function NavbarAdmin() {
   return (
@@ -14,8 +13,11 @@ export default function NavbarAdmin() {
           </Link>
         </div>
       </div>
-      <Link href="/profile" className="block p-2 hover:bg-gray-100 rounded-md">
-      Profile
+      <Link
+        href="/user-profile"
+        className="block p-2 hover:bg-gray-100 rounded-md"
+      >
+        Profile
       </Link>
       <Link href="/settings" className="block p-2 hover:bg-gray-100 rounded-md">
         Lowongan
@@ -24,7 +26,7 @@ export default function NavbarAdmin() {
         href="/notifications"
         className="block p-2 hover:bg-gray-100 rounded-md"
       >
-       CV
+        CV
       </Link>
 
       <ProfileDropdown />

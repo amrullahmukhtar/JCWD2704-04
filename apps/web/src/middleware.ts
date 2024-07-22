@@ -41,7 +41,7 @@ if (access_token) {
   userType =
     decodedToken?.company_name != undefined
       ? "admin"
-      : decodedToken?.gender != undefined
+      : decodedToken?.gender || decodedToken?.googleId != undefined
       ? "user"
       : decodedToken?.bank_acc_no != undefined
       ? "developer"

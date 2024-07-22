@@ -42,7 +42,9 @@ class userController {
   async validate(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.validate(req);
-      res.send({
+      res
+        .cookie('aauth', data, { maxAge: 60 * 20 * 1000 })
+        .send({
         message: 'Validation success',
         data,
       });
@@ -68,9 +70,12 @@ class userController {
   async loginWithGoogle(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.loginWithGoogle(req);
-      res.send({
+      res
+        .cookie('rauth', data.rauth, { maxAge: 3600 * 1000 })
+        .cookie('aauth', data.aauthToken, { maxAge: 60 * 20 * 1000 })
+        .send({
         message: 'success login by Google',
-        data: data.user,
+        data: data.userData,
       });
     } catch (error) {
       next(error);
@@ -101,6 +106,20 @@ class userController {
       next(error);
     }
   }
+  async getUserProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.params.userId;
+      const { userProfile, token } = await userService.getUserProfile(userId);
+      res.send({
+        message: 'Profil pengguna berhasil diambil',
+        data: { userProfile, token }, 
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  
 }
 
 export default new userController();

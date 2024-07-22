@@ -8,6 +8,7 @@ export type TMainApiResponse = {
 export type TRoute = {
   movie: "/job" | `/job/${string}`;
   user: "/user" | `/user/${string}`;
+  userdata: "/userdata" | `/userdata/${string}`;
   admin: "/admin" | `/admin/${string}`;
   dev: "/dev" | `/dev/${string}`;
   ticket: "/ticket" | `/ticket/${string}`;
