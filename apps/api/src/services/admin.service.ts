@@ -6,6 +6,7 @@ import { Gender, Prisma } from '@prisma/client';
 import { generateToken } from '@/lib/jwt';
 import { transporter } from '@/lib/nodemailer';
 import { VERIFY_URL } from '@/config';
+import { validateAdmin } from '@/validate';
 
 export class AdminService {
   async registerAdmin(req: Request) {
@@ -42,6 +43,36 @@ export class AdminService {
     });
 
     return a;
+  }
+
+  
+  async updateAdminData(req: Request) {
+    const {
+      company_name,
+      company_summary,
+      company_location,
+      contact_email,
+      contact_phone,
+      experience,
+      kota_kabupaten,
+      provinsi,
+    } = req.body;
+  
+    validateAdmin(req);
+  
+    return await prisma.users.update({
+      where: { id: String(req.params.id) },
+      data: {
+        company_name,
+        company_summary,
+        company_location,
+        contact_email,
+        contact_phone,
+        experience,
+        kota_kabupaten,
+        provinsi,
+      },
+    });
   }
 }
 

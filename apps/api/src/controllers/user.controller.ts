@@ -106,18 +106,7 @@ class userController {
       next(error);
     }
   }
-  async getUserProfile(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.params.userId;
-      const { userProfile, token } = await userService.getUserProfile(userId);
-      res.send({
-        message: 'Profil pengguna berhasil diambil',
-        data: { userProfile, token }, 
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
+
   
   
 }

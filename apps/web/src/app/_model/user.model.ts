@@ -2,13 +2,12 @@ export interface IUser {
   id: string;
   email: string;
   fullname: string;
+  role: 'user';
 
-  // Prisma specific fields
   curriculum_vitae?: Buffer;
   avatar?: Buffer;
   phone_no?: string;
 
-  // Additional user-specific fields
   address?: string;
   age?: number;
   education?: string;
@@ -28,9 +27,16 @@ export interface IUser {
 export interface IAdmin {
   id: string;
   email: string;
-  // other admin-specific fields
-  role: 'admin';
-  company_name: string;
+   role: 'admin';
+  company_name?: string;
+  company_logo?: string;
+  company_summary?: string;
+  company_location?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  kota_kabupaten?: string;
+  provinsi?: string;
+
 }
 
 export interface IDeveloper {

@@ -2,17 +2,18 @@
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/redux/hooks';
-import BackEndFormProfile from '../formComponent/backEndFormProfile';
-import { IUser } from '@/app/_model/user.model';
+import BackEndFormProfile from '../formComponent/backEndFormAdminProfile';
 import { useRouter } from 'next/navigation';
 import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
-import InputProfile from './inputProfile';
+import { IAdmin } from '@/app/_model/user.model';
+import InputAdminProfile from './inputAdminProfile';
+import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 
-const UserProfileForm: React.FC = () => {
+const AdminProfileForm: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [input, setInput] = useState<IUser | null>(null);
+  const [input, setInput] = useState<IAdmin | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const userData: IUser | null = useAppSelector((state) => state.userData);
+  const userData: IAdmin | null = useAppSelector((state) => state.adminData);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -28,9 +29,7 @@ const UserProfileForm: React.FC = () => {
       const updatedInput = files
         ? { ...input, [id]: files[0] }
         : { ...input, [id]: value };
-      if (id === 'date_of_birth') {
-        updatedInput[id] = new Date(value);
-      }
+
       setInput(updatedInput);
     }
   };
@@ -38,21 +37,20 @@ const UserProfileForm: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full flex-col">
       <BackEndFormProfile
-        action={`/userdata/${userData?.id}`}
+        action={`/admin/${userData?.id}`}
         method="patch"
         onSuccess={(go) => {
           setIsEditing(false);
-          dispatch(userDataAction.loginUser(go.data.data));
+          dispatch(adminDataAction.loginAdmin(go.data.data));
           router.refresh();
         }}
         data={input}
         className="items-center w-full"
       >
-        <InputProfile
+        <InputAdminProfile
           input={input}
           isEditing={isEditing}
           inputHandler={inputHandler}
-          requiredFields={['age', 'education', 'position']}
         />
 
         <div className="flex items-center justify-between">
@@ -76,4 +74,4 @@ const UserProfileForm: React.FC = () => {
   );
 };
 
-export default UserProfileForm;
+export default AdminProfileForm;

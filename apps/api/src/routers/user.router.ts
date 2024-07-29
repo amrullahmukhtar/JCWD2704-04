@@ -36,7 +36,6 @@ class userRouter extends EntityRouter {
       '/recovery',
       userController.resetPassword.bind(userController),
     );
-    this.router.get('/profile/:userId', tokenAuth, userController.getUserProfile.bind(userController)); // Endpoint untuk getUserProfile
   
   }
 }

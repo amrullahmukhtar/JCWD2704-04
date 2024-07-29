@@ -118,7 +118,6 @@ export class UserService {
         id: req.user?.id as string,
       },
     });
-    console.log(tokenData);
 
     return tokenData == null
       ? null
@@ -163,7 +162,6 @@ export class UserService {
 
   async loginWithGoogle(req: Request) {
     const { email, googleId } = req.body;
-    console.log(req.body);
 
     const data = await prisma.users.findFirst({
       where: {
@@ -192,7 +190,6 @@ export class UserService {
   async forgotPassword(req: Request) {
     try {
       const { email } = await formatRequestBody(req, false); // Tidak perlu hash password
-      console.log('Received email:', email);
 
       if (!email) {
         throw new Error('Email is required');
@@ -221,7 +218,6 @@ export class UserService {
         html: `<b>Click the link to reset your password: <a href="${FORGOT_URL + '?token=' + token}">Reset Password</a></b>`,
       });
 
-      console.log('Mail sent:', mailInfo);
 
       return mailInfo;
     } catch (error) {
@@ -251,28 +247,7 @@ export class UserService {
       message: 'Password reset successful',
     };
   }
-  async getUserProfile(userId: string) {
-    const userProfile = await prisma.users.findUnique({
-      where: { id: userId },
-      select: {
-        id: true,
-        email: true,
-        fullname: true,
-        gender: true,
-        is_verified: true,
-        role: true,
-        // Tambahan field yang lain yang ingin diambil dari profil pengguna
-      },
-    });
 
-    if (!userProfile) {
-      throw new Error('User not found');
-    }
-
-    const token = generateToken({ id: userProfile.id }, { expiresIn: '1h' });
-
-    return { userProfile, token };
-  }
 }
 
 export default new UserService();

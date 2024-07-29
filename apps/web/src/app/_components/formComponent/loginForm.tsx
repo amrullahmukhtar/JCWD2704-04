@@ -60,11 +60,13 @@ const LoginForm: React.FC = () => {
           onSuccess={(response) => {
             if (response.data.data.role === 'user') {
               dispatch(userDataAction.loginUser(response.data.data));
-              console.log(response.data.data);
+              router.push("/")
             } else if (response.data.data.role === 'admin') {
               dispatch(adminDataAction.loginAdmin(response.data.data));
+              router.push("/admin")
             } else if (response.data.data.role === 'developer') {
               dispatch(devDataAction.loginDeveloper(response.data.data));
+              router.push("/dev")
             }
 
             Swal.fire({
@@ -72,7 +74,6 @@ const LoginForm: React.FC = () => {
               text: 'Welcome back!',
               icon: 'success',
             });
-            router.push('/');
           }}
           onFail={(err) => {
             Swal.fire({

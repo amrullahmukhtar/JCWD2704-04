@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { NavbarToggler } from "./_components/navbarComponent/navbar";
 import Footer from "./_components/footerComponent/footer";
 import StoreProvider from "./_components/reduxProviderComponent/storeProvider";
 
@@ -21,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className=""} min-h-screen`}>
         <StoreProvider>
-          <NavbarToggler />
+
           <div className="px-2">{children}</div>          
         </StoreProvider>
         <Footer />

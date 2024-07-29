@@ -15,6 +15,17 @@ export class userController {
       next(error);
     }
   }
+  async updateAdminData(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await adminService.updateAdminData(req);
+      res.send({
+        message: 'fetch Userdata by Id',
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new userController();

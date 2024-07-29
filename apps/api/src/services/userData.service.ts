@@ -1,20 +1,13 @@
 /** @format */
 import { Request } from 'express';
 import { prisma } from '../lib/prisma';
-import { validateUser } from '@/auth';
+import {  validateUser } from '@/validate';
 
 export class UserDataService {
   async getAllUserData(req: Request) {
     return await prisma.users.findMany();
   }
 
-  async getUserDataById(req: Request) {
-    const { user_Id } = req.params;
-
-    return await prisma.users.findUnique({
-      where: { id: String(user_Id) },
-    });
-  }
   async updateUserData(req: Request) {
     const {
       fullname,
@@ -27,9 +20,10 @@ export class UserDataService {
       position,
       experience,
       kota_kabupaten,
+      provinsi,
     } = req.body;
     validateUser(req);
-  
+
     return await prisma.users.update({
       where: { id: String(req.params.id) },
       data: {
@@ -45,10 +39,12 @@ export class UserDataService {
         position,
         experience,
         kota_kabupaten,
+        provinsi,
       },
     });
-    
   }
+
+
 }
 
 export default new UserDataService();

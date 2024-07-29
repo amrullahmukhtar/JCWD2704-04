@@ -11,7 +11,6 @@ class UserDataRouter extends EntityRouter {
   }
   private initializedRoutes() {
     this.router.get("/", userDataController.getAllUserData.bind(userDataController));
-    this.router.get("/:user_Id", userDataController.getUserDataById.bind(userDataController));
     this.router.patch("/:id",tokenAuth, userDataController.updateUserData.bind(userDataController));
 
   }

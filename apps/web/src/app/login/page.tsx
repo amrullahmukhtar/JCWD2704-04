@@ -1,8 +1,12 @@
+import LoginForm from "@/app/_components/formComponent/loginForm";
+import { NavbarToggler } from "@/app/_components/navbarComponent/navbar";
 import React from "react";
-import LoginForm from "../_components/formComponent/loginForm";
 
-const LoginPage: React.FC = () => {
-  return <LoginForm />;
-};
-
-export default LoginPage;
+export default function page() {
+  return (
+    <>
+      <NavbarToggler />
+      <LoginForm />
+    </>
+  );
+}

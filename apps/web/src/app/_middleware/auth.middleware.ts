@@ -14,12 +14,14 @@ export const keepLogin = async (dispatch: Dispatch) => {
     if (!token) throw new Error('Token not found');
 
     const fetchValidate = (await csrMainApi().get("/user/validate")).data.data
+    
 
     const user = jwtDecode<JwtPayload & (IUser | IAdmin | IDeveloper)>(fetchValidate);
     console.log(user, 'masuk');
 
     if ('role' in user) {
-      switch (user.role) {
+      switch (user.role)
+      {
         case 'user':
           dispatch(userDataAction.loginUser(user as IUser));
           break;
@@ -31,7 +33,9 @@ export const keepLogin = async (dispatch: Dispatch) => {
           break;
         default:
           throw new Error('Unknown user role');
-      }
+          
+          
+      } console.log(user.role,"ini role")
     } else {
       throw new Error('Invalid user data');
     }

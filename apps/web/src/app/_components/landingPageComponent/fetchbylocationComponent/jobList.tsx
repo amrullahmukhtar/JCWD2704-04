@@ -5,7 +5,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 type Job = {
   id: number;
   title: string;
-  company: string;
+  company_name: string;
   location: string;
   distance?: number;
 };
@@ -22,7 +22,7 @@ const JobList: React.FC<JobListProps> = ({ jobs }) => (
           <div>
             <h3 className="text-xl font-semibold">{job.title}</h3>
             <p className="text-gray-600">
-              {job.company} - {job.location}
+              {job.company_name} - {job.location}
             </p>
           </div>
           <div className="flex items-center">
