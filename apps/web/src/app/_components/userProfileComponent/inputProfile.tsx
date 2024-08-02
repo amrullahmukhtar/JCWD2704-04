@@ -28,38 +28,8 @@ const InputProfile: React.FC<InputProfileProps> = ({
     'date_of_birth',
   ];
 
-  const handleAvatarClick = () => {
-    if (isEditing) {
-      const avatarInput = document.getElementById('avatar') as HTMLInputElement;
-      if (avatarInput) {
-        avatarInput.click();
-      }
-    }
-  };
-
   return (
-    <div className="w-full items-center bg-white shadow-md rounded-lg p-6">
-      <div className="flex items-center mb-4 w-full">
-        <img
-          src={
-            input?.avatar
-              ? URL.createObjectURL(new Blob([input.avatar]))
-              : '/profileDefault.svg'
-          }
-          alt="Profile Picture"
-          className="w-16 h-16 rounded-full mr-4"
-          style={{ cursor: isEditing ? 'pointer' : 'default' }}
-          onClick={handleAvatarClick}
-        />
-        <input
-          type="file"
-          id="avatar"
-          onChange={inputHandler}
-          className="ml-2"
-          style={{ display: 'none' }}
-        />
-      </div>
-
+    <div className="w-full items-center bg-white shadow-md p-6">
       {fields.map((field) => (
         <div className="mb-4" key={field}>
           <label htmlFor={field} className="block text-gray-700">

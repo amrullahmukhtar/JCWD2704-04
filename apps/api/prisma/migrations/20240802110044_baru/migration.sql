@@ -9,6 +9,8 @@ CREATE TABLE `users` (
     `role` ENUM('user', 'admin', 'developer') NOT NULL DEFAULT 'user',
     `curriculum_vitae` LONGBLOB NULL,
     `avatar` LONGBLOB NULL,
+    `avatarUrl` VARCHAR(191) NULL,
+    `cvUrl` VARCHAR(191) NULL,
     `phone_no` VARCHAR(25) NULL,
     `address` VARCHAR(255) NULL,
     `age` INTEGER NULL,
@@ -54,6 +56,15 @@ CREATE TABLE `career_histories` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `company_content` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `company_id` VARCHAR(191) NOT NULL,
+    `content` TEXT NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `certifications` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `user_id` VARCHAR(191) NOT NULL,
@@ -88,13 +99,13 @@ CREATE TABLE `skills` (
 -- CreateTable
 CREATE TABLE `jobs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `admin_id` VARCHAR(191) NULL,
+    `admin_id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(100) NOT NULL,
     `hire_position` VARCHAR(191) NOT NULL,
     `description` TEXT NOT NULL,
-    `status` ENUM('published', 'finished') NOT NULL DEFAULT 'published',
     `location` VARCHAR(191) NOT NULL,
     `posted_date` DATETIME(3) NOT NULL,
+    `status` ENUM('published', 'finished') NOT NULL DEFAULT 'published',
     `closing_date` DATETIME(3) NOT NULL,
     `longitude` DOUBLE NOT NULL,
     `latitude` DOUBLE NOT NULL,
@@ -179,6 +190,9 @@ CREATE TABLE `transactions` (
 ALTER TABLE `career_histories` ADD CONSTRAINT `career_histories_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `company_content` ADD CONSTRAINT `company_content_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `certifications` ADD CONSTRAINT `certifications_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -186,6 +200,9 @@ ALTER TABLE `educations` ADD CONSTRAINT `educations_user_id_fkey` FOREIGN KEY (`
 
 -- AddForeignKey
 ALTER TABLE `skills` ADD CONSTRAINT `skills_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `jobs` ADD CONSTRAINT `jobs_admin_id_fkey` FOREIGN KEY (`admin_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `assessments` ADD CONSTRAINT `assessments_developer_id_fkey` FOREIGN KEY (`developer_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

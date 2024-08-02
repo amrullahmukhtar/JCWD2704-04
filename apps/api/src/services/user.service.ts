@@ -119,6 +119,10 @@ export class UserService {
       },
     });
 
+    if (!tokenData) {
+      throw new Error('User not found');
+    }
+
     return tokenData == null
       ? null
       : generateToken(
@@ -218,7 +222,6 @@ export class UserService {
         html: `<b>Click the link to reset your password: <a href="${FORGOT_URL + '?token=' + token}">Reset Password</a></b>`,
       });
 
-
       return mailInfo;
     } catch (error) {
       console.error('Error in forgotPassword:', error);
@@ -247,7 +250,6 @@ export class UserService {
       message: 'Password reset successful',
     };
   }
-
 }
 
 export default new UserService();

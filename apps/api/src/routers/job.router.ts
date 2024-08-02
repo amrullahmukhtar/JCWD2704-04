@@ -10,7 +10,8 @@ class JobRouter extends EntityRouter {
   }
   private initializedRoutes() {
     this.router.get("/", jobController.getAllJob.bind(jobController));
-    this.router.get("/:job_Id", jobController.getJobById.bind(jobController));
+    this.router.get("/:id", jobController.getJobById.bind(jobController));
+    this.router.get("/jobCompany/:admin_id", jobController.getJobsByCompany.bind(jobController));
 
   }
 }

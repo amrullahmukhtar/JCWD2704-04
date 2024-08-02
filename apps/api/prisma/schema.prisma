@@ -20,13 +20,12 @@ model Users {
   gender   Gender?
   googleId String?
 
-  // languages        String    @db.VarChar(85)
-  // resume           String    @db.Text
-
   role             Role    @default(user)
   // USER
   curriculum_vitae Bytes?
   avatar           Bytes?
+  avatarUrl        String?
+  cvUrl            String?
   phone_no         String? @db.VarChar(25)
 
   address    String? @db.VarChar(255)
@@ -67,6 +66,8 @@ model Users {
   Skill_assessment Skill_assessment[]
   User_answer      User_answer[]
   Transaction      Transaction[]
+  Company_content  Company_content[]
+  Job              Job[]
 
   @@index([fullname, email, role])
   @@map("users")
@@ -101,6 +102,16 @@ model Career_history {
   user Users @relation(fields: [user_id], references: [id])
 
   @@map("career_histories")
+}
+
+model Company_content {
+  id         Int    @id @default(autoincrement())
+  company_id String
+  content    String @db.Text
+
+  user Users @relation(fields: [company_id], references: [id])
+
+  @@map("company_content")
 }
 
 model Certification {
@@ -144,18 +155,19 @@ enum Post_status {
 
 model Job {
   id            Int         @id @default(autoincrement())
-  admin_id      String?
+  admin_id      String
   title         String      @db.VarChar(100)
   hire_position String
   description   String      @db.Text
-  status        Post_status @default(published)
   location      String
   posted_date   DateTime
+  status        Post_status @default(published)
   closing_date  DateTime
   longitude     Float
   latitude      Float
 
   company_name String? @db.VarChar(100)
+  Company      Users   @relation(fields: [admin_id], references: [id], onDelete: Cascade)
 
   @@map("jobs")
 }

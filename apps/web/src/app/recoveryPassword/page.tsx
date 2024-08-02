@@ -1,11 +1,11 @@
 import React from 'react';
 import RecoveryPasswordForm from '../_components/formComponent/recoveryPasswordForm';
-import { NavbarToggler } from '../_components/navbarComponent/navbar';
+import { NavbarTogglerSatu } from '../_components/navbarComponent/navbar1';
 
 const VerificationPage: React.FC = () => {
   return (
     <>
-      <NavbarToggler />
+      <NavbarTogglerSatu />
       <RecoveryPasswordForm />;
     </>
   );

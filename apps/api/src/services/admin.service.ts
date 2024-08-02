@@ -10,12 +10,15 @@ import { validateAdmin } from '@/validate';
 
 export class AdminService {
   async registerAdmin(req: Request) {
-    const { email, password, company_name } = await formatRequestBody(req, true);
+    const { email, password, company_name } = await formatRequestBody(
+      req,
+      true,
+    );
 
     const data: Prisma.UsersCreateManyInput = {
       email,
       password,
-      company_name ,
+      company_name,
       role: 'admin',
       is_verified: false,
     };
@@ -44,8 +47,36 @@ export class AdminService {
 
     return a;
   }
+  async getAllCompanies(req: Request) {
+    // Retrieve all users with role 'admin' which represents companies
+    return await prisma.users.findMany({
+      where: {
+        role: 'admin',
+      },
+      select: {
+        id: true,
+        company_name: true,
+        company_summary: true,
+        company_location: true,
+        contact_email: true,
+      },
+    });
+  }
+  async getCompanyById(req: Request) {
+    const { id } = req.params;
 
-  
+    return await prisma.users.findUnique({
+      where: { id: String(id) },
+      select: {
+        id: true,
+        company_name: true,
+        company_summary: true,
+        company_location: true,
+        contact_email: true,
+      },
+    });
+  }
+
   async updateAdminData(req: Request) {
     const {
       company_name,
@@ -57,9 +88,9 @@ export class AdminService {
       kota_kabupaten,
       provinsi,
     } = req.body;
-  
+
     validateAdmin(req);
-  
+
     return await prisma.users.update({
       where: { id: String(req.params.id) },
       data: {
@@ -72,6 +103,28 @@ export class AdminService {
         kota_kabupaten,
         provinsi,
       },
+    });
+  }
+
+  async postContent(req: Request) {
+    const { content } = req.body;
+
+    validateAdmin(req);
+
+    return await prisma.company_content.create({
+      data: {
+        company_id: String(req.params.company_id), // Ensure this is a valid company_id
+        content,
+      },
+    });
+  }
+  async getContent(req: Request) {
+    const { company_id } = req.params;
+
+    validateAdmin(req);
+
+    return await prisma.company_content.findMany({
+      where: { company_id: String(company_id) },
     });
   }
 }

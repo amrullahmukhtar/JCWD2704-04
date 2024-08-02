@@ -8,6 +8,7 @@ import express, {
   Router,
 } from 'express';
 import cors from 'cors';
+import path from 'path';
 import userRouter from './routers/user.router';
 import adminRouter from './routers/admin.router';
 import developerRouter from './routers/developer.router';
@@ -24,6 +25,13 @@ export default class App {
     this.routes();
     this.handleError();
   }
+
+  private configure(): void {
+    this.app.use(json());
+    this.app.use(urlencoded({ extended: true }));
+    this.app.use(cors(corsOption));
+  }
+
   private routes(): void {
     this.app.get('/', (req: Request, res: Response) => {
       res.send(`Hello, Purwadhika Student API!`);
@@ -34,12 +42,14 @@ export default class App {
     this.app.use('/dev', developerRouter.getRouter());
     this.app.use('/job', jobRouter.getRouter());
     this.app.use('/userdata', userDataRouter.getRouter());
-  }
-
-  private configure(): void {
-    this.app.use(json());
-    this.app.use(urlencoded({ extended: true }));
-    this.app.use(cors(corsOption));
+    this.app.use(
+      '/uploads/avatars',
+      express.static(path.join(__dirname, '/uploads/avatars')),
+    );
+    this.app.use(
+      '/uploads/cvs',
+      express.static(path.join(__dirname, '/uploads/cvs')),
+    );
   }
 
   private handleError(): void {

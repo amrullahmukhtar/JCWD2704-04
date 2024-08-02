@@ -25,6 +25,17 @@ export class JobController {
       next(error);
     }
   }
+  async getJobsByCompany(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await jobService.getJobsByCompany(req);
+      res.send({
+        message: 'fetch Job by Job Id',
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new JobController();

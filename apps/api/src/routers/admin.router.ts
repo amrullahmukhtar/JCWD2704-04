@@ -10,7 +10,11 @@ class userRouter extends EntityRouter {
   }
   private initializedRoutes() {
     this.router.post('/ad1', adminController.registerAdmin.bind(adminController));
+    this.router.get('/companyAll', adminController.getAllCompanies.bind(adminController));
+    this.router.get('/ad1/:id', adminController.getCompanyById.bind(adminController))
     this.router.patch("/:id",tokenAuth, adminController.updateAdminData.bind(adminController));
+    this.router.post("/content/:company_id",tokenAuth, adminController.postContent.bind(adminController));
+    this.router.get("/content/:company_id",tokenAuth, adminController.getContent.bind(adminController));
 
 
   }

@@ -8,12 +8,20 @@ export class JobService {
   }
 
   async getjobById(req: Request) {
-    const { job_Id } = req.params;
+    const { id } = req.params;
 
     return await prisma.job.findMany({
-      where: { id: Number(job_Id) },
+      where: { id: Number(id) },
     });
   }
+  async getJobsByCompany(req: Request) {
+    const { admin_id } = req.params;
+
+    return await prisma.job.findMany({
+      where: { admin_id: admin_id },
+    });
+  }
+
 }
 
 export default new JobService();

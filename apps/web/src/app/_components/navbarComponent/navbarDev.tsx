@@ -1,7 +1,6 @@
 // NavbarDeveloper.js
-import Image from "next/image";
-import Link from "next/link";
-import ProfileDropdown from "./profile";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function NavbarDeveloper() {
   return (
@@ -13,7 +12,6 @@ export default function NavbarDeveloper() {
           </Link>
         </div>
       </div>
-      <ProfileDropdown />
     </div>
   );
 }

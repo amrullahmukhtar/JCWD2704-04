@@ -4,7 +4,7 @@ import { EMAIL_VERIFY_KEY, FORGET_PASSWORD_KEY, SECRET_KEY } from '../config';
 const key: Record<string, Secret> = {
   SECRET_KEY,
   EMAIL_VERIFY_KEY,
-  FORGET_PASSWORD_KEY, // Perbaikan disini
+  FORGET_PASSWORD_KEY,
 };
 
 export const generateToken = (
@@ -35,7 +35,7 @@ export const generateForgotPasswordToken = (
   options: SignOptions = {}
 ): string => {
   try {
-    return generateToken(data, options, "FORGET_PASSWORD_KEY"); // Perbaikan disini
+    return generateToken(data, options, "FORGET_PASSWORD_KEY");
   } catch (err) {
     throw err;
   }
@@ -43,7 +43,7 @@ export const generateForgotPasswordToken = (
 
 export const verifyForgotPasswordToken = (token: string): any => {
   try {
-    return verifyToken(token, "FORGET_PASSWORD_KEY"); // Perbaikan disini
+    return verifyToken(token, "FORGET_PASSWORD_KEY");
   } catch (err) {
     throw err;
   }

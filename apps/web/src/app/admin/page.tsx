@@ -1,13 +1,12 @@
-import React from 'react'
-import { NavbarAdminToggler } from '../_components/navbarComponent/navbarAdmin'
-import AdminProfile from '../_components/adminProfileComponent/adminProfile'
+import React from 'react';
+import { NavbarAdminToggler } from '../_components/navbarComponent/navbarAdmin';
+import AdminContent from '../_components/adminProfileComponent/adminProfile';
 
 export default function page() {
   return (
     <>
-    <NavbarAdminToggler/>
-    <AdminProfile/>
+      <NavbarAdminToggler />
+      <AdminContent />s
     </>
-  )
+  );
 }
-

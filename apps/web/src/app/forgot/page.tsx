@@ -1,12 +1,12 @@
 
 import React from "react";
 import RecoveryPasswordForm from "../_components/formComponent/lupaPasswordForm";
-import { NavbarToggler } from "../_components/navbarComponent/navbar";
+import { NavbarTogglerSatu } from "../_components/navbarComponent/navbar1";
 
 export default function page() {
   return (
     <>
-      <NavbarToggler />
+      <NavbarTogglerSatu />
       <RecoveryPasswordForm />
     </>
   );

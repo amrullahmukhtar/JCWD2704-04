@@ -26,7 +26,6 @@ const RTEComponent: React.FC<RTEComponentProps> = ({ value, onChange }) => {
     'link', 'image', 'align'
   ];
 
-  // Custom blot to allow custom class for images
   const ImageBlot = Quill.import('formats/image');
   ImageBlot.className = 'img-fluid';
 

@@ -3,17 +3,16 @@ export interface IUser {
   email: string;
   fullname: string;
   role: 'user';
-
   curriculum_vitae?: Buffer;
   avatar?: Buffer;
+  avatarUrl?: string;
+  cvUrl?: string;
   phone_no?: string;
-
   address?: string;
   age?: number;
   education?: string;
   position?: string;
   experience?: string;
-
   kota_kabupaten?: string;
   provinsi?: string;
   date_of_birth?: Date;
@@ -23,11 +22,11 @@ export interface IUser {
   subs_end_date?: Date;
 }
 
-
 export interface IAdmin {
+  company_id: string;
   id: string;
   email: string;
-   role: 'admin';
+  role: 'admin';
   company_name?: string;
   company_logo?: string;
   company_summary?: string;
@@ -36,7 +35,6 @@ export interface IAdmin {
   contact_phone?: string;
   kota_kabupaten?: string;
   provinsi?: string;
-
 }
 
 export interface IDeveloper {
@@ -52,5 +50,3 @@ export enum Gender {
   male = 'male',
   female = 'female',
 }
-
-

@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: [
+      "localhost",
       "m.media-amazon.com",
       "via.placeholder.com",
       "assets.aceternity.com",

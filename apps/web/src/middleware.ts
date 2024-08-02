@@ -12,9 +12,10 @@ const developerOnly = ['/developer', '/developer-dashboard'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get('rauth')?.value || '.';
+  const token = request.cookies.get('rauth')?.value || '';
   const response = NextResponse.next();
 
+  // Validate the token and get a new one if valid
   const access_token = await ssrMainApi()
     .get('/user/validate', {
       withCredentials: true,
@@ -36,62 +37,42 @@ export async function middleware(request: NextRequest) {
 
   let userType = 'guest';
   if (access_token) {
-    const decodedToken: any = jwtDecode(access_token);
-    userType =
-      decodedToken?.company_name != undefined
-        ? 'admin'
-        : decodedToken?.gender || decodedToken?.googleId != undefined
-          ? 'user'
-          : decodedToken?.bank_acc_no != undefined
-            ? 'developer'
-            : 'guest';
+    const decodedToken: JwtPayload = jwtDecode(access_token);
+    userType = decodedToken.role;
   }
   console.log('type', userType);
 
   // Define route restrictions
-  const adminRoutes = pathname.startsWith('/admin');
-  const developerRoutes = pathname.startsWith('/developer');
-  const userRoutes =
-    pathname.startsWith('/user') || pathname.startsWith('/admin');
+  const adminRoutes = pathname.includes('/admin');
+  const developerRoutes = pathname.includes('/developer');
+  const userRoutes = pathname.includes('/user');
 
   // Admin access restrictions
-  if (userType === 'admin' && !adminRoutes) {
-    return NextResponse.redirect(new URL('/admin', request.url));
-  } else if (userType === 'admin' && pathname === '/admin-login') {
-    return NextResponse.redirect(new URL('/admin', request.url));
-  } else if (
-    (userType != 'admin' && pathname.startsWith('/admin')) ||
-    pathname == 'admin-register'
-  ) {
+  if (userType !== 'admin' && adminRoutes) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  } else if (userType !== 'admin' && pathname === '/admin-register') {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // Developer access restrictions
-  if (userType === 'developer' && !developerRoutes) {
-    return NextResponse.redirect(new URL('/developer-login', request.url));
-  } else if (userType === 'developer' && pathname === '/developer-login') {
-    return NextResponse.redirect(new URL('/developer-dashboard', request.url));
-  } else if (
-    (userType != 'developer' && pathname.startsWith('/developer')) ||
-    pathname == 'developer-register'
-  ) {
+  if (userType !== 'developer' && developerRoutes) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  } else if (userType !== 'developer' && pathname === '/developer-register') {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // User access restrictions
-  if (userType === 'user' && (adminRoutes || developerRoutes)) {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
-  // Handle guest users
-  if (userType === 'user' && guestOnly.includes(pathname)) {
-    return NextResponse.redirect(new URL('/', request.url));
-  } else if (
-    userType !== 'user' &&
-    (pathname.startsWith('/chekOut/') || pathname.endsWith('/ticket'))
-  ) {
+  if (userType !== 'user' && userRoutes) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  } else if (userType !== 'user' && pathname === '/register') {
     return NextResponse.redirect(new URL('/login', request.url));
   }
+
+  // Guest access restrictions
+  if (userType === 'guest' && (userRoutes || adminRoutes || developerRoutes)) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
   return response;
 }
 
@@ -101,8 +82,7 @@ export const config = {
     '/login',
     '/forgot',
     '/admin/:path*',
-    '/:path*/ticket',
-    '/chekOut/:path*',
     '/developer/:path*',
+    '/user/:path*',
   ],
 };

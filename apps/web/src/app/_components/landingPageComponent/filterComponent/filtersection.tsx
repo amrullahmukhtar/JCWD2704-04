@@ -3,6 +3,8 @@
 import React from "react";
 import csrMainApi from "@/app/_lib/axios/csrMainApi";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { format } from 'date-fns';
 
 const FilterSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -85,16 +87,29 @@ const FilterSection: React.FC = () => {
             <ul className="divide-y divide-gray-200">
               {searchResults.length > 0 ? (
                 searchResults.map((job) => (
-                  <li key={job.id} className="py-4">
-                    <div className="flex space-x-4">
-                      <div className="flex-1">
-                        <h4 className="text-lg font-semibold">{job.title}</h4>
-                        <p className="text-sm text-gray-600">{job.description}</p>
-                        <p className="text-sm text-gray-600">{job.location}</p>
-                        <a href="#" className="block text-blue-500 text-sm mt-2">Lihat Detail</a>
-                      </div>
+                  <li
+                  key={job.id}
+                  className="bg-white rounded-lg shadow-md p-4 mb-4"
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold">{job.title}</h3>
+                      <p className="text-gray-600">
+                        {job.company_name} - {job.location}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        Posted:{' '}
+                        {format(new Date(job.posted_date), 'dd MMM yyyy')}
+                      </p>
+                      <Link
+                        href={`/user/lowongan/${job.id}`}
+                        className="block text-blue-500 text-sm mt-2"
+                      >
+                        Lihat Detail
+                      </Link>
                     </div>
-                  </li>
+                  </div>
+                </li>
                 ))
               ) : (
                 <p className="text-lg text-gray-600 mt-4">Tidak ada hasil yang ditemukan</p>
