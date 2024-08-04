@@ -1,15 +1,14 @@
-import AllCompany from '@/app/_components/companyForUser/allCompany';
+import JobApplicationDetails from '@/app/_components/companyForUser/jobApplicationDetails';
 import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbar1';
 
-const LowonganPage: React.FC = () => {
+export default function page() {
   return (
     <>
       <NavbarTogglerSatu />
       <div className='min-h-screen'>
-        <AllCompany />
+      <JobApplicationDetails/>
       </div>
+
     </>
   );
-};
-
-export default LowonganPage;
+}

@@ -8,9 +8,11 @@ export default function page() {
   return (
     <>
       <NavbarTogglerSatu />
-      <UploadAvatar/>
-      <SubmitCV/>
-      <UserProfileForm />
+      <div className="min-h-screen">
+        <UploadAvatar />
+        <SubmitCV />
+        <UserProfileForm />
+      </div>
     </>
   );
 }

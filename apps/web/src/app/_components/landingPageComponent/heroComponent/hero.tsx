@@ -49,8 +49,11 @@ const HeroSection: React.FC = async () => {
               <p className="text-sm text-gray-600 mt-1">
                 Posted Date: {new Date(job.posted_date).toLocaleDateString()}
               </p>
-              <a href={`/user/lowongan/${job.id}`} className="block text-blue-500 text-sm mt-2">
-                Lihat Detail
+              <a
+                href={`/user/lowongan/${job.id}`}
+                className="block text-blue-500 text-sm mt-2"
+              >
+                View Details
               </a>
             </div>
           ))}

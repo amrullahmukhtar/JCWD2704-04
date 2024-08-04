@@ -11,6 +11,7 @@ import csrMainApi from '@/app/_lib/axios/csrMainApi';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 import { devDataAction } from '@/app/_lib/redux/slices/devData.slice';
 import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
+import Image from 'next/image'; // Import the Image component
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -134,7 +135,13 @@ const LoginForm: React.FC = () => {
           onClick={signInWithGoogle}
           className="w-full bg-white text-gray-700 py-2 rounded mt-4 border border-gray-300 hover:bg-gray-100 transition duration-200 flex items-center justify-center"
         >
-          <img src="/google.svg" alt="Google Icon" className="w-6 h-6 mr-2" />
+          <Image
+            src="/google.svg" // Path to the Google icon image
+            alt="Google Icon"
+            width={24} // Set the width of the image
+            height={24} // Set the height of the image
+            className="mr-2" // Add margin-right to align with the text
+          />
           Sign in with Google
         </button>
       </div>

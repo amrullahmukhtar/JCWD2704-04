@@ -7,9 +7,11 @@ const LandingPage: React.FC = () => {
   return (
     <>
       <NavbarTogglerSatu />
+      <div className='bg-gray-100'>
       <FilterSection />
       <HeroSection />
       <DiscoverySection />
+      </div>
  
     </>
   );

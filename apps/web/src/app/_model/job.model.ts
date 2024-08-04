@@ -6,10 +6,21 @@ export interface IJob {
   latitude: number;
   longitude: number;
   posted_date: string;
-  category: string; // New category field
-  distance?: number; // Optional distance field
-  description?: string; // Optional description field (if you want to include it)
-  hire_position?: string; // Optional hire_position field (if applicable)
-  status?: string; // Optional status field (if applicable)
-  closing_date?: string; // Optional closing_date field (if applicable)
+  category: string; 
+  distance?: number; 
+  description?: string; 
+  hire_position?: string;
+  status?: string; 
+  closing_date?: string; 
+}
+
+export interface IJobRegis {
+  job_id: number; 
+  user_id: string; 
+  application_date: string; 
+  salary_expectation: number; 
+  status: string; 
+  interview_date?: string; 
+  review?: string; 
+  job: IJob; 
 }

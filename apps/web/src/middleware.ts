@@ -7,8 +7,11 @@ interface JwtPayload {
   role: 'user' | 'admin' | 'developer';
 }
 
-const guestOnly = ['/register', '/login', '/forgot'];
-const developerOnly = ['/developer', '/developer-dashboard'];
+// Define allowed routes for each user type
+const guestOnlyRoutes = ['/register',"/", '/login', '/forgot', '/recoveryPassword', '/verification'];
+const adminRoutes = ['/admin'];
+const developerRoutes = ['/developer'];
+const userRoutes = ['/user'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,64 +19,49 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   // Validate the token and get a new one if valid
-  const access_token = await ssrMainApi()
-    .get('/user/validate', {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((res) => {
-      response.cookies.set('aauth', res.data.data);
-      return res.data.data;
-    })
-    .catch((err) => {
-      response.cookies.delete('aauth');
-      response.cookies.delete('rauth');
-      return false;
-    });
+  let userType: 'guest' | 'user' | 'admin' | 'developer' = 'guest';
+  let access_token: string | false = false;
 
-  let userType = 'guest';
-  if (access_token) {
-    const decodedToken: JwtPayload = jwtDecode(access_token);
-    userType = decodedToken.role;
-  }
-  console.log('type', userType);
+  try {
+    access_token = await ssrMainApi()
+      .get('/user/validate', {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => {
+        response.cookies.set('aauth',   
+ res.data.data);
+        return res.data.data;
+      });
 
-  // Define route restrictions
-  const adminRoutes = pathname.includes('/admin');
-  const developerRoutes = pathname.includes('/developer');
-  const userRoutes = pathname.includes('/user');
-
-  // Admin access restrictions
-  if (userType !== 'admin' && adminRoutes) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  } else if (userType !== 'admin' && pathname === '/admin-register') {
-    return NextResponse.redirect(new URL('/login', request.url));
+    if (access_token) {
+      const decodedToken: JwtPayload = jwtDecode(access_token);
+      userType = decodedToken.role;
+    }
+  } catch (error) {
+    console.error('Error validating token:', error);
+    response.cookies.delete('aauth');
+    response.cookies.delete('rauth');
   }
 
-  // Developer access restrictions
-  if (userType !== 'developer' && developerRoutes) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  } else if (userType !== 'developer' && pathname === '/developer-register') {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  // User access restrictions
-  if (userType !== 'user' && userRoutes) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  } else if (userType !== 'user' && pathname === '/register') {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  // Guest access restrictions
-  if (userType === 'guest' && (userRoutes || adminRoutes || developerRoutes)) {
+  // Check if the requested path is allowed for the current user type
+  if (guestOnlyRoutes.includes(pathname) && userType === 'guest') {
+    // Allow guests to access specific pages
+    return response;
+  } else if (userType === 'admin' && adminRoutes.some(route => pathname.startsWith(route))) {
+    return response;
+  } else if (userType === 'developer' && developerRoutes.some(route => pathname.startsWith(route))) {
+    return response;
+  } else if (userType === 'user' && userRoutes.some(route => pathname.startsWith(route))) {
+    return response;
+  } else {
+    // Redirect to login page for unauthorized users
     return NextResponse.redirect(new URL('/login', request.url));
   }
-
-  return response;
 }
 
 export const config = {

@@ -68,6 +68,7 @@ model Users {
   Transaction      Transaction[]
   Company_content  Company_content[]
   Job              Job[]
+  Job_regis        Job_regis[]
 
   @@index([fullname, email, role])
   @@map("users")
@@ -166,8 +167,9 @@ model Job {
   longitude     Float
   latitude      Float
 
-  company_name String? @db.VarChar(100)
-  Company      Users   @relation(fields: [admin_id], references: [id], onDelete: Cascade)
+  company_name String?     @db.VarChar(100)
+  company      Users       @relation(fields: [admin_id], references: [id], onDelete: Cascade)
+  Job_regis    Job_regis[]
 
   @@map("jobs")
 }
@@ -179,14 +181,18 @@ enum Regis_status {
 }
 
 model Job_regis {
-  job_id           String
-  admin_id         String
-  application_date DateTime
-  status           Regis_status @default(pending)
-  interview_date   DateTime
-  review           String       @db.Text
+  job_id             Int          @id 
+  user_id            String
+  application_date   DateTime
+  salary_expectation Float
+  status             Regis_status @default(pending)
+  interview_date     DateTime?
+  review             String?      @db.Text
 
-  @@id([job_id, admin_id])
+  user Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  job  Job   @relation(fields: [job_id], references: [id], onDelete: Cascade)
+
+@@unique([job_id, user_id])
   @@map("job_registrations")
 }
 

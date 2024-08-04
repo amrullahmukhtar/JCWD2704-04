@@ -45,7 +45,7 @@ const ProfileDropdownKecil = () => {
   };
 
   const fullname = userData?.fullname || '';
-  const avatarUrl = userData?.avatarUrl ? `http://localhost:8000${userData.avatarUrl}` : '/default-avatar.jpg';
+  const avatarUrl = userData?.avatarUrl ? `http://localhost:8000${userData.avatarUrl}` : '/profileDefault.svg';
 
   return (
     <div className="relative md:hidden">

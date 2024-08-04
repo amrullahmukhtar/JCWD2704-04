@@ -87,6 +87,12 @@ const ProfileDropdownSatu = () => {
           >
             Manage account
           </Link>
+          <Link
+            href="/user/jobApplication"
+            className="block p-2 hover:bg-gray-100 rounded-md"
+          >
+            Submitted Jobs
+          </Link>
           <button
             onClick={handleLogout}
             className="block p-2 hover:bg-gray-100 rounded-md w-full text-left"

@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 type Job = {
   id: number;
@@ -24,6 +25,9 @@ const JobList: React.FC<JobListProps> = ({ jobs }) => (
             <p className="text-gray-600">
               {job.company_name} - {job.location}
             </p>
+            <Link href={`/user/lowongan/${job.id}`}>
+          <p  className="text-blue-500">View Details</p>
+          </Link>
           </div>
           <div className="flex items-center">
             <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-500 mr-1" />
@@ -31,6 +35,7 @@ const JobList: React.FC<JobListProps> = ({ jobs }) => (
               <p>Distance: {job.distance.toFixed(1)} km</p>
             )}
           </div>
+          
         </div>
       </li>
     ))}

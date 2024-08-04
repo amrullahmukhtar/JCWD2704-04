@@ -51,7 +51,7 @@ const FilterSection: React.FC = () => {
   };
 
   return (
-    <section className="py-10 bg-gray-200">
+    <section className="py-10 bg-gray-100">
       <div className="container mx-auto">
         <h2 className="text-2xl font-bold mb-4">Filter Pekerjaan</h2>
         {/* Form pencarian pekerjaan */}
@@ -105,7 +105,7 @@ const FilterSection: React.FC = () => {
                         href={`/user/lowongan/${job.id}`}
                         className="block text-blue-500 text-sm mt-2"
                       >
-                        Lihat Detail
+                        View Details
                       </Link>
                     </div>
                   </div>

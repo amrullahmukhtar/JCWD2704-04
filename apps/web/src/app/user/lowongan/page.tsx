@@ -4,8 +4,10 @@ import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbar1';
 const LowonganPage: React.FC = () => {
   return (
     <>
-    <NavbarTogglerSatu/>
-      <FilterLowongan />
+      <NavbarTogglerSatu />
+      <div className="min-h-screen">
+        <FilterLowongan />
+      </div>
     </>
   );
 };
