@@ -14,7 +14,6 @@ class userController {
     }
   }
 
-
   async regisWithGoogle(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.regisWithGoogle(req);
@@ -42,9 +41,7 @@ class userController {
   async validate(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.validate(req);
-      res
-        .cookie('aauth', data, { maxAge: 60 * 20 * 1000 })
-        .send({
+      res.cookie('aauth', data, { maxAge: 60 * 20 * 1000 }).send({
         message: 'Validation success',
         data,
       });
@@ -74,9 +71,9 @@ class userController {
         .cookie('rauth', data.rauth, { maxAge: 3600 * 1000 })
         .cookie('aauth', data.aauthToken, { maxAge: 60 * 20 * 1000 })
         .send({
-        message: 'success login by Google',
-        data: data.userData,
-      });
+          message: 'success login by Google',
+          data: data.userData,
+        });
     } catch (error) {
       next(error);
     }
@@ -106,9 +103,6 @@ class userController {
       next(error);
     }
   }
-
-  
-  
 }
 
 export default new userController();

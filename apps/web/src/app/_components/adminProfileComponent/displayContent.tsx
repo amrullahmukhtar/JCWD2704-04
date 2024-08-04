@@ -17,7 +17,6 @@ const DisplayContent: React.FC = () => {
 
   // Use useEffect to log adminData only when it changes
   useEffect(() => {
-    console.log(adminData, "ini admindata");
   }, [adminData]);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const DisplayContent: React.FC = () => {
       if (adminData?.id) {
         try {
           const response = await csrMainApi().get(`/admin/content/${adminData.id}`);
-          console.log('API response:', response.data);
           setContents(response.data.data);
         } catch (error) {
           console.error('Error fetching content:', error);

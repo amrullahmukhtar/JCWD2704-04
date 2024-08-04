@@ -155,7 +155,6 @@ export class UserService {
     const result = { id: data.id };
     const userData = { ...data, password: undefined };
     const aauthToken = generateToken(userData, { expiresIn: TOKEN_EXPIRY });
-    console.log(aauthToken);
 
     return {
       rauth: generateToken(result, { expiresIn: TOKEN_EXPIRY }),
@@ -182,7 +181,6 @@ export class UserService {
     const result = { id: data.id };
     const userData = { ...data, password: undefined };
     const aauthToken = generateToken(userData, { expiresIn: TOKEN_EXPIRY });
-    console.log(aauthToken);
 
     return {
       rauth: generateToken(result, { expiresIn: TOKEN_EXPIRY }),

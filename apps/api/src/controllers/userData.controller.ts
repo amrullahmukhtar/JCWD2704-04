@@ -41,15 +41,18 @@ export class UserDataController {
       });
     } catch (error) {
       // Handle multer-related errors
-      if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-        return res.status(400).send({ message: 'File size exceeds the 100 KB limit' });
+      if (
+        error instanceof multer.MulterError &&
+        error.code === 'LIMIT_FILE_SIZE'
+      ) {
+        return res
+          .status(400)
+          .send({ message: 'File size exceeds the 100 KB limit' });
       }
 
       next(error);
     }
   }
-  
-  
 
   async submitCV(req: Request, res: Response, next: NextFunction) {
     try {
@@ -58,9 +61,14 @@ export class UserDataController {
         message: 'CV submitted successfully',
         cvUrl: data.cvUrl, // Return CV URL
       });
-    } catch (error:any) {
-      if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-        return res.status(400).send({ message: 'File size exceeds the 1 MB limit' });
+    } catch (error: any) {
+      if (
+        error instanceof multer.MulterError &&
+        error.code === 'LIMIT_FILE_SIZE'
+      ) {
+        return res
+          .status(400)
+          .send({ message: 'File size exceeds the 1 MB limit' });
       }
       if (error.message === 'Only PDF files are allowed') {
         return res.status(400).send({ message: 'Only PDF files are allowed' });

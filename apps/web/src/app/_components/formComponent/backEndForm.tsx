@@ -23,7 +23,6 @@ const BackEndForm: React.FC<BackEndFormProps> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(data);
       let res;
       switch (method) {
         case "post":

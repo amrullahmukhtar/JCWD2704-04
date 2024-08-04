@@ -27,7 +27,6 @@ const AdminContent: React.FC = () => {
       setLoading(true); // Mulai loading
       try {
         const response = await csrMainApi().get(`/admin/content/${adminData.id}`);
-        console.log('API response:', response.data);
         setContents(response.data.data);
       } catch (error) {
         console.error('Error fetching content:', error);

@@ -87,7 +87,7 @@ const SubmitCV: React.FC = () => {
   const handleDownload = () => {
     if (userData?.cvUrl) {
       const link = document.createElement('a');
-      link.href = `http://localhost:8000${userData.cvUrl}`;
+      link.href = `${process.env.NEXT_PUBLIC_BASE_API_URL}${userData.cvUrl}`;
       link.download = `${userData.fullname}_cv.pdf`;
       link.click();
     } else {

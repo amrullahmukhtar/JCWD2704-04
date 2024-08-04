@@ -26,7 +26,6 @@ const BackEndFormProfile: React.FC<BackEndFormProps> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Submitting data to backend data:', data);
       let res;
       switch (method) {
         case "post":
@@ -44,7 +43,6 @@ const BackEndFormProfile: React.FC<BackEndFormProps> = ({
         default:
           throw new Error(`Unsupported method: ${method}`);
       }
-      console.log('Response from backend sukses:', res);
       onSuccess(res);
     } catch (error) {
       if (onFail) {

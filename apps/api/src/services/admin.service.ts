@@ -6,7 +6,7 @@ import { Gender, Prisma } from '@prisma/client';
 import { generateToken } from '@/lib/jwt';
 import { transporter } from '@/lib/nodemailer';
 import { VERIFY_URL } from '@/config';
-import { validateAdmin } from '@/validate';
+import { validateAdmin } from '@/utils/validate';
 
 export class AdminService {
   async registerAdmin(req: Request) {

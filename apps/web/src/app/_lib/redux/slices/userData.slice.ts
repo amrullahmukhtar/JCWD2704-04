@@ -14,7 +14,6 @@ const userDataSlice = createSlice({
   reducers: {
     loginUser: (state, action: { payload: IUser }) => {
       state = action.payload;
-      console.log(state);
       
       return state;
     },

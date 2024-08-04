@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { prisma } from '../lib/prisma';
-import { validateUser } from '@/validate';
+import { validateUser } from '@/utils/validate';
 import fs from 'fs';
 import path from 'path';
 

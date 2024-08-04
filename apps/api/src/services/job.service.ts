@@ -1,6 +1,7 @@
 /** @format */
 import { Request } from 'express';
 import { prisma } from '../lib/prisma';
+import { validateUser } from '@/utils/validate';
 
 export class JobService {
   async getAlljob(req: Request) {
@@ -27,7 +28,6 @@ export class JobService {
     const { jobId } = req.params;
     const { userId, salaryExpectation } = req.body;
 
-    // Check if the user has already applied for this job
     const existingApplication = await prisma.job_regis.findUnique({
       where: { job_id_user_id: { job_id: Number(jobId), user_id: userId } },
     });
@@ -36,7 +36,6 @@ export class JobService {
       throw new Error('You have already applied for this job.');
     }
 
-    // Check if the user has uploaded a CV and provided salary expectations
     const user = await prisma.users.findUnique({
       where: { id: userId },
       select: { cvUrl: true },
@@ -46,7 +45,6 @@ export class JobService {
       throw new Error('Please upload your CV and provide your salary expectations.');
     }
 
-    // Create a new job registration
     return await prisma.job_regis.create({
       data: {
         job_id: Number(jobId),
@@ -58,6 +56,7 @@ export class JobService {
   }
   async getApplicationsByUser(req: Request) {
     const { userId } = req.params;
+    validateUser(req);
     return await prisma.job_regis.findMany({
       where: { user_id: userId },
       include: {
@@ -68,6 +67,7 @@ export class JobService {
 
   async getApplicationDetails(req: Request) {
     const {  userId, jobId } = req.params;
+    validateUser(req);
     return await prisma.job_regis.findUnique({
       where: {
         job_id_user_id: {

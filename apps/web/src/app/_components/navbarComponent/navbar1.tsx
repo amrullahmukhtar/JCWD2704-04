@@ -9,7 +9,7 @@ import { useAppSelector } from '@/app/_lib/redux/hooks';
 export function NavbarTogglerSatu() {
   return (
     <nav className="w-full sticky top-0 z-50">
-      <div className="w-full h-[80px] rounded-md border border-transparent bg-white shadow-input py-2 md:px-5">
+      <div className="w-full h-[80px] rounded-md border border-transparent bg-white shadow-input py-2 px-2 md:px-5">
         <Navbar />
       </div>
     </nav>
@@ -32,17 +32,17 @@ export default function Navbar() {
         </div>
       </div>
       <div className="hidden md:flex items-center gap-5">
-        <Link href="/user/lowongan" className="hover:underline">
+        <Link href="/user/lowongan" className="hover:underline font-semibold">
           Lowongan
         </Link>
-        <Link href="/user/perusahaan" className="hover:underline">
+        <Link href="/user/perusahaan" className="hover:underline font-semibold">
           Perusahaan
         </Link>
-        <Link href="/user/skillAssessment" className="hover:underline">
+        <Link href="/user/skillAssessment" className="hover:underline font-semibold">
           Assessment
         </Link>
         {!isLoggedIn && (
-          <Link href="/login" className="hover:underline">
+          <Link href="/login" className="hover:underline font-semibold">
             Login
           </Link>
         )}
@@ -50,7 +50,7 @@ export default function Navbar() {
       </div>
       <div className="md:hidden flex items-center gap-5">
         {!isLoggedIn && (
-          <Link href="/login" className="hover:underline">
+          <Link href="/login" className="hover:underline font-semibold">
             Login
           </Link>
         )}

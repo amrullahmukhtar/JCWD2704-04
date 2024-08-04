@@ -4,7 +4,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/redux/hooks';
 import BackEndFormProfile from '../formComponent/backEndFormAdminProfile';
 import { useRouter } from 'next/navigation';
-import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 import { IAdmin } from '@/app/_model/user.model';
 import InputAdminProfile from './inputAdminProfile';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';

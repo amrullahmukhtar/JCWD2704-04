@@ -45,7 +45,7 @@ const ProfileDropdownKecil = () => {
   };
 
   const fullname = userData?.fullname || '';
-  const avatarUrl = userData?.avatarUrl ? `http://localhost:8000${userData.avatarUrl}` : '/profileDefault.svg';
+  const avatarUrl = userData?.avatarUrl ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${userData.avatarUrl}` : '/profileDefault.svg';
 
   return (
     <div className="relative md:hidden">
@@ -75,24 +75,30 @@ const ProfileDropdownKecil = () => {
               <div className="font-bold">{fullname}</div>
             </div>
           </div>
-          <Link href="/user/lowongan" className="block p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/user/lowongan" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
             Lowongan
           </Link>
-          <Link href="/user/perusahaan" className="block p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/user/perusahaan" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
             Perusahaan
           </Link>
-          <Link href="/user/skillAssessment" className="block p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/user/skillAssessment" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
             Assessment
           </Link>
-          <Link href="/user/profile" className="block p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/user/profile" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
             Profile
           </Link>
-          <Link href="/user/manage-account" className="block p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/user/manage-account" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
             Manage account
+          </Link>
+          <Link
+            href="/user/jobApplication"
+            className="block p-2 hover:bg-gray-100 rounded-md font-semibold"
+          >
+            Submitted Jobs
           </Link>
           <button 
             onClick={handleLogout}
-            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left"
+            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left font-semibold"
           >
             Log out
           </button>

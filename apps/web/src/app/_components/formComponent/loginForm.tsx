@@ -20,6 +20,9 @@ const LoginForm: React.FC = () => {
   function inputHandler(e: ChangeEvent<HTMLInputElement>) {
     setInput({ ...input, [e.target.id]: e.target.value });
   }
+  const handleClick = () => {
+    router.push('/admin-register');
+  };
 
   const dispatch = useAppDispatch();
 
@@ -30,7 +33,6 @@ const LoginForm: React.FC = () => {
 
       const response = await csrMainApi().post('user/v2/bygoogle', { email });
 
-      console.log(response.data.data);
       Swal.fire({
         title: 'Success',
         text: 'Welcome back!',
@@ -38,7 +40,6 @@ const LoginForm: React.FC = () => {
       });
 
       dispatch(userDataAction.loginUser(response.data.data));
-      console.log(response.data.data);
       router.push('/');
     } catch (error) {
       console.error('Error signing in with Google: ', error);
@@ -61,13 +62,13 @@ const LoginForm: React.FC = () => {
           onSuccess={(response) => {
             if (response.data.data.role === 'user') {
               dispatch(userDataAction.loginUser(response.data.data));
-              router.push("/")
+              router.push('/');
             } else if (response.data.data.role === 'admin') {
               dispatch(adminDataAction.loginAdmin(response.data.data));
-              router.push("/admin")
+              router.push('/admin');
             } else if (response.data.data.role === 'developer') {
               dispatch(devDataAction.loginDeveloper(response.data.data));
-              router.push("/dev")
+              router.push('/dev');
             }
 
             Swal.fire({
@@ -143,6 +144,12 @@ const LoginForm: React.FC = () => {
             className="mr-2" // Add margin-right to align with the text
           />
           Sign in with Google
+        </button>
+        <button
+          className="w-full bg-white text-fuchsia-700 font-semibold py-2 rounded mt-4 border border-fuchsia-700 hover:bg-gray-100 transition duration-200 flex items-center justify-center"
+          onClick={handleClick}
+        >
+          Join us today! Create a business account.
         </button>
       </div>
     </div>

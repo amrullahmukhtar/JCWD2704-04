@@ -51,7 +51,7 @@ const JobApplications: React.FC = () => {
         ) : (
           <div className="space-y-4">
             {applications.length === 0 ? (
-              <p className="text-center">Loading...</p>
+              <p className="text-center">No job applications have been submitted yet.</p>
             ) : (
               applications.map((application) => (
                 <div

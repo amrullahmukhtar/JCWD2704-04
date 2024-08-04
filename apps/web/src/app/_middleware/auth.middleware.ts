@@ -17,7 +17,6 @@ export const keepLogin = async (dispatch: Dispatch) => {
     
 
     const user = jwtDecode<JwtPayload & (IUser | IAdmin | IDeveloper)>(fetchValidate);
-    console.log(user, 'masuk');
 
     if ('role' in user) {
       switch (user.role)
@@ -35,7 +34,7 @@ export const keepLogin = async (dispatch: Dispatch) => {
           throw new Error('Unknown user role');
           
           
-      } console.log(user.role,"ini role")
+      } 
     } else {
       throw new Error('Invalid user data');
     }

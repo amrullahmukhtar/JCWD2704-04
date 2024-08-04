@@ -50,7 +50,7 @@ const InputProfile: React.FC<InputProfileProps> = ({
                 : (input?.[field] as string) || ''
             }
             onChange={inputHandler}
-            className={`w-full border rounded p-2 focus:outline-none ${isEditing ? 'focus:border-blue-500' : 'bg-gray-200'}`}
+            className={`w-full border rounded p-2 focus:outline-none ${isEditing ? 'focus:border-blue-500' : 'bg-gray-100'}`}
             readOnly={!isEditing}
             required={requiredFields.includes(
               field as 'age' | 'education' | 'position',
