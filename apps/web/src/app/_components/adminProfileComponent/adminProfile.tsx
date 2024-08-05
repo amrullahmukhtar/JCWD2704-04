@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import React, { useEffect, useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
@@ -6,6 +6,7 @@ import csrMainApi from '@/app/_lib/axios/csrMainApi';
 import { IAdmin } from '@/app/_model/user.model';
 import { useAppSelector } from '@/app/_lib/redux/hooks';
 import Loading1 from '../loadingComponent/loading1';
+import './rte.css';
 
 interface ContentData {
   id: number;
@@ -60,7 +61,7 @@ const AdminContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           {loading ? (
@@ -68,7 +69,7 @@ const AdminContent: React.FC = () => {
           ) : (
             <>
               <h1 className="text-3xl font-bold text-gray-800">Admin Page</h1>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-gray-600 text-lg">
                 Welcome to the admin page. Manage your company profile content here.
               </p>
               <form onSubmit={handleSubmit} className="mt-4">
@@ -79,10 +80,7 @@ const AdminContent: React.FC = () => {
                   <RTEComponent value={content} onChange={handleContentChange} />
                 </div>
                 <div className="mt-4">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                  >
+                  <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
                     Save Content
                   </button>
                 </div>
@@ -96,12 +94,9 @@ const AdminContent: React.FC = () => {
             <Loading1 />
           ) : contents.length > 0 ? (
             contents.map((contentItem) => (
-              <div
-                key={contentItem.id}
-                className="mt-4 p-4 bg-white shadow-md rounded-lg"
-              >
+              <div key={contentItem.id} className="mt-4 p-4 bg-white shadow-md rounded-lg">
                 <div
-                  className="text-gray-700"
+                  className="text-gray-700 w-full"
                   dangerouslySetInnerHTML={{ __html: contentItem.content }}
                 />
               </div>

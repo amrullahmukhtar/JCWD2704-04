@@ -1,4 +1,4 @@
-import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbar1';
+import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbarUser/navbar1';
 import ssrMainApi from '@/app/_lib/axios/ssrMainApi';
 
 type CompanyDetailProps = {

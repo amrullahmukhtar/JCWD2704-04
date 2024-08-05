@@ -10,20 +10,24 @@ interface RTEComponentProps {
 const RTEComponent: React.FC<RTEComponentProps> = ({ value, onChange }) => {
   const modules = {
     toolbar: [
-      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       ['bold', 'italic', 'underline'],
-      ['link', 'image'],
-      [{ 'align': [] }],
-      ['clean']
-    ]
+      [{ align: [] }],
+    ],
   };
 
   const formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline',
-    'list', 'bullet',
-    'link', 'image', 'align'
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'list',
+    'bullet',
+    'align',
+    'clean',
   ];
 
   const ImageBlot = Quill.import('formats/image');

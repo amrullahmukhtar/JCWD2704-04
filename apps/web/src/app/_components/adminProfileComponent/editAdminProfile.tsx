@@ -34,42 +34,44 @@ const AdminProfileForm: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full flex-col">
-      <BackEndFormProfile
-        action={`/admin/${userData?.id}`}
-        method="patch"
-        onSuccess={(go) => {
-          setIsEditing(false);
-          dispatch(adminDataAction.loginAdmin(go.data.data));
-          router.refresh();
-        }}
-        data={input}
-        className="items-center w-full"
-      >
-        <InputAdminProfile
-          input={input}
-          isEditing={isEditing}
-          inputHandler={inputHandler}
-        />
+<div className="flex flex-col items-center w-full p-4 bg-white shadow-lg">
+  <BackEndFormProfile
+    action={`/admin/${userData?.id}`}
+    method="patch"
+    onSuccess={(go) => {
+      setIsEditing(false);
+      dispatch(adminDataAction.loginAdmin(go.data.data));
+      router.refresh();
+    }}
+    data={input}
+    className="w-full  bg-white p-6 rounded-lg shadow-md"
+  >
+    <InputAdminProfile
+      input={input}
+      isEditing={isEditing}
+      inputHandler={inputHandler}
+    />
 
-        <div className="flex items-center justify-between">
-          {isEditing && (
-            <input
-              type="submit"
-              value="Save"
-              className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
-              onClick={() => setIsSaving(true)}
-            />
-          )}
-        </div>
-      </BackEndFormProfile>
-      <input
-        type="button"
-        value="Edit"
-        className="w-[150px] bg-gray-500 text-white py-2 rounded hover:bg-gray-600 transition duration-200"
-        onClick={() => setIsEditing(true)}
-      />
+    <div className="flex items-center justify-between mt-4">
+      {isEditing && (
+        <input
+          type="submit"
+          value="Save"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={() => setIsSaving(true)}
+        />
+      )}
     </div>
+  </BackEndFormProfile>
+
+  <input
+    type="button"
+    value="Edit"
+    className="mt-4 w-[150px] bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500"
+    onClick={() => setIsEditing(true)}
+  />
+</div>
+
   );
 };
 

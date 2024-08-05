@@ -8,11 +8,11 @@ import { useAppDispatch, useAppSelector } from '@/app/_lib/redux/hooks';
 import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 import { devDataAction } from '@/app/_lib/redux/slices/devData.slice';
-import { IUser } from '@/app/_model/user.model';
+import { IAdmin } from '@/app/_model/user.model';
 
-const ProfileDropdownKecil = () => {
+const ProfileDropdownAdmin = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const userData = useAppSelector((state) => state.userData) as IUser | null;
+  const userData = useAppSelector((state) => state.adminData) as IAdmin | null;
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -22,7 +22,10 @@ const ProfileDropdownKecil = () => {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setDropdownOpen(false);
     }
   };
@@ -44,8 +47,10 @@ const ProfileDropdownKecil = () => {
     }
   };
 
-  const fullname = userData?.fullname || '';
-  const avatarUrl = userData?.avatarUrl ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${userData.avatarUrl}` : '/profileDefault.svg';
+  const fullname = userData?.company_name || '';
+  const avatarUrl = userData?.avatarUrl
+    ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${userData.avatarUrl}`
+    : '/profileDefault.svg';
 
   return (
     <div className="relative md:hidden">
@@ -59,7 +64,7 @@ const ProfileDropdownKecil = () => {
         />
       </button>
       {dropdownOpen && (
-        <div 
+        <div
           ref={dropdownRef}
           className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2"
         >
@@ -75,30 +80,16 @@ const ProfileDropdownKecil = () => {
               <div className="font-bold">{fullname}</div>
             </div>
           </div>
-          <Link href="/user/lowongan" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
-            Lowongan
-          </Link>
-          <Link href="/user/perusahaan" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
-            Perusahaan
-          </Link>
-          <Link href="/user/skillAssessment" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
-            Assessment
-          </Link>
-          <Link href="/user/profile" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
+          <Link href="/admin/compro" className="hover:underline font-semibold text-black">
             Profile
           </Link>
-          <Link href="/user/manage-account" className="block p-2 hover:bg-gray-100 rounded-md font-semibold">
-            Manage account
+          <Link href="/admin/opre" className="hover:underline font-semibold text-black">
+            Recruitment
           </Link>
-          <Link
-            href="/user/jobApplication"
-            className="block p-2 hover:bg-gray-100 rounded-md font-semibold"
-          >
-            Submitted Jobs
-          </Link>
-          <button 
+
+          <button
             onClick={handleLogout}
-            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left font-semibold"
+            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left font-semibold text-black"
           >
             Log out
           </button>
@@ -108,4 +99,4 @@ const ProfileDropdownKecil = () => {
   );
 };
 
-export default ProfileDropdownKecil;
+export default ProfileDropdownAdmin;

@@ -27,22 +27,27 @@ export default function Navbar() {
       <div className="h-full flex items-center justify-center gap-3">
         <div className="h-full relative aspect-[261/73]">
           <Link href="/">
-            <Image src="/logoCA.png" alt="logo" fill />
+          <Image
+              src="/logoCA.png"
+              alt="logo"
+              fill
+              sizes="(max-width: 768px) 50vw, 20vw" // Add sizes prop
+            />          
           </Link>
         </div>
       </div>
       <div className="hidden md:flex items-center gap-5">
-        <Link href="/user/lowongan" className="hover:underline font-semibold">
+        <Link href="/user/lowongan" className="hover:underline font-semibold text-black">
           Lowongan
         </Link>
-        <Link href="/user/perusahaan" className="hover:underline font-semibold">
+        <Link href="/user/perusahaan" className="hover:underline font-semibold text-black">
           Perusahaan
         </Link>
-        <Link href="/user/skillAssessment" className="hover:underline font-semibold">
+        <Link href="/user/skillAssessment" className="hover:underline font-semibold text-black">
           Assessment
         </Link>
         {!isLoggedIn && (
-          <Link href="/login" className="hover:underline font-semibold">
+          <Link href="/login" className="hover:underline font-semibold text-black">
             Login
           </Link>
         )}
@@ -50,7 +55,7 @@ export default function Navbar() {
       </div>
       <div className="md:hidden flex items-center gap-5">
         {!isLoggedIn && (
-          <Link href="/login" className="hover:underline font-semibold">
+          <Link href="/login" className="hover:underline font-semibold text-black">
             Login
           </Link>
         )}

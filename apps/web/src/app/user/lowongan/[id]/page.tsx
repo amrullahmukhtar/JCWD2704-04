@@ -1,5 +1,5 @@
 import ApplyJob from '@/app/_components/companyForUser/applyJob';
-import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbar1';
+import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbarUser/navbar1';
 import ssrMainApi from '@/app/_lib/axios/ssrMainApi';
 import { IJob } from '@/app/_model/job.model';
 

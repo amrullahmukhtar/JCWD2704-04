@@ -23,6 +23,7 @@ export interface IUser {
 }
 
 export interface IAdmin {
+  avatarUrl?: string;
   company_id: string;
   id: string;
   email: string;

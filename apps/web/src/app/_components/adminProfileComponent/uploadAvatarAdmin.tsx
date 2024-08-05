@@ -3,17 +3,17 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import csrMainApi from '@/app/_lib/axios/csrMainApi';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/redux/hooks';
-import { IUser } from '@/app/_model/user.model';
+import { IAdmin } from '@/app/_model/user.model';
 import Loading1 from '../loadingComponent/loading1';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
+import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 
-const UploadAvatar: React.FC = () => {
+const UploadAvatarAdmin: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const userData: IUser | null = useAppSelector((state) => state.userData);
+  const userData: IAdmin | null = useAppSelector((state) => state.adminData);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -59,7 +59,7 @@ const UploadAvatar: React.FC = () => {
       });
       setIsEditing(false);
       router.refresh();
-      dispatch(userDataAction.loginUser(response.data.data));
+      dispatch(adminDataAction.loginAdmin(response.data.data));
     } catch (error: any) {
       Swal.fire({
         title: 'Error',
@@ -124,4 +124,4 @@ const UploadAvatar: React.FC = () => {
   );
 };
 
-export default UploadAvatar;
+export default UploadAvatarAdmin;

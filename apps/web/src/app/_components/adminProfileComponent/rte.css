@@ -1,0 +1,73 @@
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-left {
+  text-align: left;
+}
+
+h1 {
+  font-size: 40px; /* Ukuran font untuk header utama */
+  color: #333; /* Warna teks */
+  margin-bottom: 0.5em; /* Jarak bawah */
+}
+
+h2 {
+  font-size: 32px; /* Ukuran font untuk sub-header */
+  color: #555;
+  margin-bottom: 0.5em;
+}
+
+/* Gaya untuk paragraf */
+p {
+  font-size: 16px; /* Ukuran font untuk paragraf */
+  line-height: 1.5; /* Jarak antar baris */
+  color: #666; /* Warna teks */
+  margin-bottom: 16px; /* Jarak bawah */
+}
+
+/* Gaya untuk list */
+ul {
+  padding-left: 20px;
+  list-style-type: disc;
+  margin-bottom: 16px; /* Jarak bawah */
+}
+
+li {
+  margin-bottom: 8px; /* Jarak bawah item list */
+}
+
+/* Gaya untuk link */
+a {
+  color: #007bff; /* Warna teks */
+  text-decoration: none; /* Menghilangkan garis bawah */
+}
+
+a:hover {
+  text-decoration: underline; /* Garis bawah saat hover */
+  color: #0056b3; /* Warna saat hover */
+}
+
+.ql-font-serif {
+  font-family: 'Times New Roman', serif; /* Menggunakan font serif */
+}
+
+/* Styling untuk font monospace */
+.ql-font-monospace {
+  font-family: 'Courier New', Courier, monospace; /* Font monospace */
+}
+
+/* Styling untuk ordered list (ol) */
+ol {
+  padding-left: 20px; /* Memberi jarak kiri pada daftar */
+  list-style-type: decimal; /* Tipe nomor untuk item daftar */
+}
+
+/* Styling untuk list item (li) */
+li {
+  margin-bottom: 8px; /* Jarak bawah untuk setiap item daftar */
+}

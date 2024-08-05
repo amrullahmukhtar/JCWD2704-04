@@ -77,25 +77,25 @@ const ProfileDropdownSatu = () => {
 
           <Link
             href="/user/profile"
-            className="block p-2 hover:bg-gray-100 rounded-md font-semibold"
+            className="block p-2 hover:bg-gray-100 rounded-md font-semibold text-black"
           >
             Profile
           </Link>
           <Link
             href="/user/manage-account"
-            className="block p-2 hover:bg-gray-100 rounded-md font-semibold"
+            className="block p-2 hover:bg-gray-100 rounded-md font-semibold text-black"
           >
             Manage account
           </Link>
           <Link
             href="/user/jobApplication"
-            className="block p-2 hover:bg-gray-100 rounded-md font-semibold"
+            className="block p-2 hover:bg-gray-100 rounded-md font-semibold text-black"
           >
             Submitted Jobs
           </Link>
           <button
             onClick={handleLogout}
-            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left font-semibold"
+            className="block p-2 hover:bg-gray-100 rounded-md w-full text-left font-semibold text-black"
           >
             Log out
           </button>

@@ -115,6 +115,7 @@ export class AdminService {
       data: {
         company_id: String(req.params.company_id), // Ensure this is a valid company_id
         content,
+        
       },
     });
   }

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { prisma } from '../lib/prisma';
-import { validateUser } from '@/utils/validate';
+import { validateAdmin, validateUser } from '@/utils/validate';
 import fs from 'fs';
 import path from 'path';
 
@@ -59,7 +59,7 @@ export class UserDataService {
 
     // Generate URL for image
     const avatarUrl = `/uploads/avatars/${req.params.id}_avatar.jpg`;
-    validateUser(req);
+    validateUser || validateAdmin(req);
 
     return await prisma.users.update({
       where: { id: String(req.params.id) },
