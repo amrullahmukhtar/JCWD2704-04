@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProfileDropdownAdmin from './profileKecilAdmin';
 import { useAppSelector } from '@/app/_lib/redux/hooks';
+import ProfileDropdownAdmins from './profileAdmin';
 
 export function NavbarTogglerAdmin() {
   return (
@@ -48,7 +49,7 @@ export default function NavbarAdmin() {
             Login
           </Link>
         )}
-        {isLoggedIn && <ProfileDropdownAdmin />}
+        {isLoggedIn && <ProfileDropdownAdmins />}
       </div>
       <div className="md:hidden flex items-center gap-5">
         {!isLoggedIn && (

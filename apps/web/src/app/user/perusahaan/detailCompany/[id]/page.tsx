@@ -1,5 +1,6 @@
 import { NavbarTogglerSatu } from '@/app/_components/navbarComponent/navbarUser/navbar1';
 import ssrMainApi from '@/app/_lib/axios/ssrMainApi';
+import Image from 'next/image';
 
 type CompanyDetailProps = {
   params: {
@@ -45,48 +46,64 @@ export default async function CompanyDetail({ params }: CompanyDetailProps) {
     );
   }
 
+  const avatarUrl = company.avatarUrl
+    ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${company.avatarUrl}`
+    : '/company.svg';
+
   return (
     <>
       <NavbarTogglerSatu />
-      <div className="bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 min-h-screen">
-        <div className="container mx-auto p-6">
+      <div className="bg-gradient-to-r from-gray-50 to-gray-200 min-h-screen">
+        <div className="container mx-auto p-8">
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-4xl font-extrabold text-gray-800 mb-4">
+            <div className="flex items-center justify-center w-24 h-24 mt-8 mx-auto">
+              <Image
+                src={avatarUrl}
+                alt={`${company.company_name} logo`}
+                width={96}
+                height={96}
+                className="rounded-full object-cover"
+              />
+            </div>
+            <div className="p-8">
+              <h2 className="text-4xl font-bold text-gray-800 mb-6 ">
                 {company.company_name}
               </h2>
-              <p className="text-lg text-gray-700 mb-2">
+              <p className="text-lg text-gray-700 mb-4 ">
                 {company.company_summary}
               </p>
-              <p className="text-md text-gray-600 mb-2">
-                Location: {company.company_location}
-              </p>
-              <p className="text-md text-gray-600 mb-6">
-                Contact:{' '}
-                <a
-                  href={`mailto:${company.contact_email}`}
-                  className="text-blue-500"
-                >
-                  {company.contact_email}
-                </a>
-              </p>
+              <div className=" mb-6">
+                <p className="text-md text-gray-600 mb-2">
+                  <span className="font-semibold">Location:</span>{' '}
+                  {company.company_location}
+                </p>
+                <p className="text-md text-gray-600 mb-2">
+                  <span className="font-semibold">Contact:</span>
+                  <a
+                    href={`mailto:${company.contact_email}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {company.contact_email}
+                  </a>
+                </p>
+              </div>
 
-              <h3 className="text-3xl font-bold text-gray-800 mb-4">
+              <h3 className="text-3xl font-bold text-gray-800 mb-6">
                 Available Jobs
               </h3>
-              <ul className="divide-y divide-gray-300">
+              <ul className="space-y-4">
                 {jobs.map((job: any) => (
                   <li
                     key={job.id}
-                    className="py-6 px-4 hover:bg-gray-50 transition duration-200"
+                    className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
                   >
-                    <h4 className="text-2xl font-semibold text-gray-800">
+                    <h4 className="text-2xl font-semibold text-gray-800 mb-2">
                       {job.title}
                     </h4>
-                    <p className="text-md text-gray-600">{job.location}</p>
+                    <p className="text-md text-gray-600 mb-4">{job.location}</p>
                     <a
                       href={`/user/lowongan/${job.id}`}
-                      className="text-blue-600 hover:text-blue-800 mt-2 inline-block"
+                      className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
                       View Details
                     </a>

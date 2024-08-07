@@ -167,6 +167,7 @@ model Job {
   longitude     Float
   latitude      Float
 
+  avatarUrl    String?
   company_name String?     @db.VarChar(100)
   company      Users       @relation(fields: [admin_id], references: [id], onDelete: Cascade)
   Job_regis    Job_regis[]
@@ -181,7 +182,7 @@ enum Regis_status {
 }
 
 model Job_regis {
-  job_id             Int          @id 
+  job_id             Int          @id
   user_id            String
   application_date   DateTime
   salary_expectation Float
@@ -192,7 +193,7 @@ model Job_regis {
   user Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
   job  Job   @relation(fields: [job_id], references: [id], onDelete: Cascade)
 
-@@unique([job_id, user_id])
+  @@unique([job_id, user_id])
   @@map("job_registrations")
 }
 

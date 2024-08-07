@@ -33,7 +33,7 @@ const FilterForm: React.FC<FilterFormProps> = ({
   handleSortOrderChange,
 }) => {
   return (
-    <form className="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <form className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
       <input
         type="text"
         placeholder="Cari berdasarkan judul pekerjaan"
@@ -60,6 +60,15 @@ const FilterForm: React.FC<FilterFormProps> = ({
         <option value="1month">1 Bulan Terakhir</option>
       </select>
 
+      <select
+        className="p-2 border border-gray-300 rounded-md focus:outline-none"
+        value={sortOrder}
+        onChange={handleSortOrderChange}
+      >
+        <option value="newest">Terbaru</option>
+        <option value="oldest">Terlama</option>
+      </select>
+
       <input
         type="date"
         placeholder="Tanggal Mulai"
@@ -67,6 +76,7 @@ const FilterForm: React.FC<FilterFormProps> = ({
         value={startDate}
         onChange={handleStartDateChange}
       />
+      <div className='p-2 border text-xl font-bold focus:outline-none text-center'> s/d</div>
 
       <input
         type="date"
@@ -76,14 +86,7 @@ const FilterForm: React.FC<FilterFormProps> = ({
         onChange={handleEndDateChange}
       />
 
-      <select
-        className="p-2 border border-gray-300 rounded-md focus:outline-none"
-        value={sortOrder}
-        onChange={handleSortOrderChange}
-      >
-        <option value="newest">Terbaru</option>
-        <option value="oldest">Terlama</option>
-      </select>
+
 
       <button
         type="button"

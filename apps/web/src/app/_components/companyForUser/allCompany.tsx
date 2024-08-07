@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
 import csrMainApi from '@/app/_lib/axios/csrMainApi';
+import Image from 'next/image';
 
 const AllCompany: React.FC = () => {
   const [companies, setCompanies] = useState<any[]>([]);
@@ -72,13 +73,37 @@ const AllCompany: React.FC = () => {
         </button>
       </div>
       <ul className="divide-y divide-gray-200">
-        {companies.map(company => (
-          <li key={company.id} className="bg-white rounded-lg shadow-md p-4 mb-4">
-            <h3 className="text-xl font-bold">{company.company_name}</h3>
-            <p>{company.company_location}</p>
-            <a href={`/user/perusahaan/detailCompany/${company.id}`} className="text-blue-500">View Details</a>
-          </li>
-        ))}
+        {companies.map(company => {
+          const avatarUrl = company.avatarUrl
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${company.avatarUrl}`
+            : '/company.svg';
+
+          return (
+            <div key={company.id} className="bg-white rounded-lg shadow-lg p-6 mb-4 transition-transform transform hover:scale-105">
+              <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0 w-16 h-16">
+                  <Image
+                    src={avatarUrl}
+                    alt={`${company.company_name} logo`}
+                    width={64}
+                    height={64}
+                    className="rounded-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-gray-900">{company.company_name}</h3>
+                  <p className="text-gray-600 mt-1">{company.company_location}</p>
+                  <a
+                    href={`/user/perusahaan/detailCompany/${company.id}`}
+                    className="text-blue-600 hover:text-blue-800 mt-2 inline-block transition-colors duration-300"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </ul>
     </div>
   );

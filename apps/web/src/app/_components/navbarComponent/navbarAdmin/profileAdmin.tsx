@@ -9,15 +9,15 @@ import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
 import { IAdmin } from '@/app/_model/user.model';
 
-const ProfileDropdownAdmin = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+const ProfileDropdownAdmins = () => {
+  const [profileDropdown, setProfileDropdown] = useState(false);
   const userData = useAppSelector((state) => state.adminData) as IAdmin | null;
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
+  const toggleProfileDropdown = () => {
+    setProfileDropdown((prev) => !prev);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -25,7 +25,7 @@ const ProfileDropdownAdmin = () => {
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target as Node)
     ) {
-      setDropdownOpen(false);
+      setProfileDropdown(false);
     }
   };
 
@@ -40,7 +40,7 @@ const ProfileDropdownAdmin = () => {
     if (confirm('Are you sure you want to logout?')) {
       dispatch(userDataAction.logout(null));
       dispatch(adminDataAction.logout(null));
-      setDropdownOpen(false);
+      setProfileDropdown(false);
       router.push('/');
     }
   };
@@ -51,8 +51,11 @@ const ProfileDropdownAdmin = () => {
     : '/profileDefault.svg';
 
   return (
-    <div className="relative md:hidden">
-      <button onClick={toggleDropdown} className="flex items-center gap-2">
+    <div className="relative">
+      <button
+        onClick={toggleProfileDropdown}
+        className="flex items-center gap-2"
+      >
         <Image
           src={avatarUrl}
           alt="Profile"
@@ -61,26 +64,14 @@ const ProfileDropdownAdmin = () => {
           className="rounded-full"
         />
       </button>
-      {dropdownOpen && (
+      {profileDropdown && (
         <div
           ref={dropdownRef}
-          className="absolute flex flex-col right-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2"
+          className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2"
         >
-          <div className="flex flex-col items-center gap-2 p-2 border-b">
+          <div className="flex flex-col items-center  p-2 border-b">
             <div className="font-bold">{company_name}</div>
           </div>
-          <Link
-            href="/admin/compro"
-            className="p-2 hover:underline font-semibold text-black"
-          >
-            Profile
-          </Link>
-          <Link
-            href="/admin/opre"
-            className="p-2 hover:underline font-semibold text-black"
-          >
-            Recruitment
-          </Link>
 
           <button
             onClick={handleLogout}
@@ -94,4 +85,4 @@ const ProfileDropdownAdmin = () => {
   );
 };
 
-export default ProfileDropdownAdmin;
+export default ProfileDropdownAdmins;

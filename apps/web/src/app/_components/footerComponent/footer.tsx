@@ -19,8 +19,8 @@ const Footer: React.FC = () => {
         <div className="flex flex-col mt-4 md:mt-0">
           <h3 className="text-xl font-bold mb-2">Tautan Berguna</h3>
           <ul className="text-sm">
-            <li><a href="#">Kebijakan Privasi</a></li>
-            <li><a href="#">Syarat dan Ketentuan</a></li>
+            <p>Kebijakan Privasi</p>
+            <p>Syarat dan Ketentuan</p>
           </ul>
         </div>
       </div>

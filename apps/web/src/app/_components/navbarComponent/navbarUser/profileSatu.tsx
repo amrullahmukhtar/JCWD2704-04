@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/redux/hooks';
 import { userDataAction } from '@/app/_lib/redux/slices/userData.slice';
 import { adminDataAction } from '@/app/_lib/redux/slices/adminData.slice';
-import { devDataAction } from '@/app/_lib/redux/slices/devData.slice';
 import { IUser } from '@/app/_model/user.model';
 
 const ProfileDropdownSatu = () => {
@@ -41,7 +40,6 @@ const ProfileDropdownSatu = () => {
     if (confirm('Are you sure you want to logout?')) {
       dispatch(userDataAction.logout(null));
       dispatch(adminDataAction.logout(null));
-      dispatch(devDataAction.logout(null));
       setProfileDropdown(false);
       router.push('/');
     }
@@ -81,12 +79,7 @@ const ProfileDropdownSatu = () => {
           >
             Profile
           </Link>
-          <Link
-            href="/user/manage-account"
-            className="block p-2 hover:bg-gray-100 rounded-md font-semibold text-black"
-          >
-            Manage account
-          </Link>
+
           <Link
             href="/user/jobApplication"
             className="block p-2 hover:bg-gray-100 rounded-md font-semibold text-black"

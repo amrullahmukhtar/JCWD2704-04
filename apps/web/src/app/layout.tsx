@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={`${inter.className=""} min-h-screen`}>
         <StoreProvider>
 
-          <div className="x-2">{children}</div>          
+          <div className="bg-gray-200">{children}</div>          
         </StoreProvider>
         <Footer />
       </body>

@@ -55,6 +55,7 @@ export class AdminService {
       },
       select: {
         id: true,
+        avatarUrl: true,
         company_name: true,
         company_summary: true,
         company_location: true,
@@ -69,6 +70,7 @@ export class AdminService {
       where: { id: String(id) },
       select: {
         id: true,
+        avatarUrl: true,
         company_name: true,
         company_summary: true,
         company_location: true,

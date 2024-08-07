@@ -2,6 +2,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Job {
   id: number;
@@ -9,6 +10,7 @@ interface Job {
   company_name: string;
   location: string;
   posted_date: string;
+  avatarUrl?: string; // Make avatarUrl optional
 }
 
 interface SearchResultsProps {
@@ -27,9 +29,19 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchResults, showResult
               searchResults.map((job) => (
                 <li
                   key={job.id}
-                  className="bg-white rounded-lg shadow-md p-4 mb-4"
+                  className="bg-white rounded-lg shadow-lg p-6 mb-4 transition-transform transform hover:scale-105"
                 >
-                  <div className="flex justify-between items-center">
+                  <div className="flex items-start">
+                    {/* Avatar Image */}
+                    <div className="w-16 h-16 mr-4 relative">
+                      <Image
+                        src={job.avatarUrl ? `${process.env.NEXT_PUBLIC_BASE_API_URL}${job.avatarUrl}` : '/company.svg'}
+                        alt={`${job.company_name} Logo`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-full"
+                      />
+                    </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold">{job.title}</h3>
                       <p className="text-gray-600">

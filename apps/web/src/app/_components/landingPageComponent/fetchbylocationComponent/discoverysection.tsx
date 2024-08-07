@@ -98,7 +98,7 @@ const DiscoverySection: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 ">
       {userLocation ? (
         <div>
           <p className="text-lg hidden font-semibold mb-4">
